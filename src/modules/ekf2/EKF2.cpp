@@ -510,13 +510,15 @@ void EKF2::Run()
 				double latitude = vehicle_command.param5;
 				double longitude = vehicle_command.param6;
 				float altitude = vehicle_command.param7;
+				unsigned cmd_result = vehicle_command_ack_s::VEHICLE_CMD_RESULT_DENIED;
 
 				if (_ekf.setEkfGlobalOrigin(latitude, longitude, altitude)) {
 					// Validate the ekf origin status.
 					uint64_t origin_time {};
 					_ekf.getEkfGlobalOrigin(origin_time, latitude, longitude, altitude);
 					PX4_INFO("%d - New NED origin (LLA): %3.10f, %3.10f, %4.3f\n",
-						 _instance, latitude, longitude, static_cast<double>(altitude));
+						_instance, latitude, longitude, static_cast<double>(altitude));
+					cmd_result = vehicle_command_ack_s::VEHICLE_CMD_RESULT_ACCEPTED;
 
 					command_ack.result = vehicle_command_ack_s::VEHICLE_CMD_RESULT_ACCEPTED;
 
