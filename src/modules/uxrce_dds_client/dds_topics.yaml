@@ -32,6 +32,9 @@ publications:
   - topic: /fmu/out/message_format_response
     type: px4_msgs::msg::MessageFormatResponse
 
+  - topic: /fmu/out/rc_channels
+    type: px4_msgs::msg::RcChannels
+
   - topic: /fmu/out/position_setpoint_triplet
     type: px4_msgs::msg::PositionSetpointTriplet
 
@@ -46,6 +49,9 @@ publications:
 
   - topic: /fmu/out/vehicle_land_detected
     type: px4_msgs::msg::VehicleLandDetected
+
+  - topic: /fmu/out/vehicle_command_ack
+    type: px4_msgs::msg::VehicleCommandAck
 
   - topic: /fmu/out/vehicle_attitude
     type: px4_msgs::msg::VehicleAttitude
