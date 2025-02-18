@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+# @name Quadrotor + Tailsitter
+#
+# @type VTOL Quad Tailsitter
+#
+
+. ${R}etc/init.d/rc.vtol_defaults
+
+PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=default}
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=Dual_Rotor_tailsitter}
+
+param set-default SIM_GZ_EN 1 # Gazebo bridge
+
+param set-default FW_L1_PERIOD 12 #
+param set-default FW_MAN_P_MAX 30 #Maximum manual pitch angle Comment: Maximum manual pitch angle setpoint (positive & negative) in manual attitude-only stabilized mode
+param set-default FW_PR_I 0.2 #Pitch rate integrator gain Comment: This gain defines how much control response will result out of a steady state error. It trims any constant error.
+param set-default FW_PR_P 0.3 #Pitch rate proportional gain
+param set-default FW_PSP_OFF 2 #Pitch setpoint offset (pitch at level flight) Comment: An airframe specific offset of the pitch setpoint in degrees, the value is added to the pitch setpoint and should correspond to the pitch at typical cruise speed of the airframe.
+param set-default FW_P_LIM_MAX 32 #Maximum pitch angle Comment: The maximum pitch angle setpoint setpoint for a height-rate or altitude controlled mode.
+param set-default FW_P_LIM_MIN -15 #Minimum pitch angle Comment: The minimum pitch angle setpoint for a height-rate or altitude controlled mode.
+param set-default FW_RR_P 0.3 #Roll rate proportional Gain
+param set-default FW_THR_CRUISE 0.33 #?
+param set-default FW_THR_MAX 0.6 #Throttle limit max This is the maximum throttle % that can be used by the controller. For overpowered aircraft, this should be reduced to a value that provides sufficient thrust to climb at the maximum pitch angle PTCH_MAX.
+param set-default FW_THR_MIN 0.05 #Throttle limit min
+param set-default FW_T_ALT_TC 2 #Altitude error time constant
+param set-default FW_T_CLMB_MAX 8 #Maximum climb rate This is the maximum climb rate that the aircraft can achieve with the throttle set to THR_MAX and the airspeed set to the trim value. For electric aircraft make sure this number can be achieved towards the end of flight when the battery voltage has reduced.
+param set-default FW_T_HRATE_FF 0.5 #Height rate feed forward
+param set-default FW_T_SINK_MAX 2.7 #Maximum descent rate This sets the maximum descent rate that the controller will use. If this value is too large, the aircraft can over-speed on descent. This should be set to a value that can be achieved without exceeding the lower pitch angle limit and without over-speeding the aircraft.
+param set-default FW_T_SINK_MIN 2.2 #Minimum descent rate This is the sink rate of the aircraft with the throttle set to THR_MIN and flown at the same airspeed as used to measure FW_T_CLMB_MAX.
+param set-default FW_T_TAS_TC 2 #True airspeed error time constant
+
+param set-default MC_ROLLRATE_P 0.3 #Roll rate P gain Comment: Roll rate proportional gain, i.e. control output for angular speed error 1 rad/s.
+
+param set-default MPC_ACC_HOR_MAX 2 #Maximum horizontal acceleration  Comment: MPC_POS_MODE 1 just deceleration 3 acceleration and deceleration 4 not used, use MPC_ACC_HOR instead
+param set-default MPC_XY_P 0.8 # Proportional gain for horizontal position error  Comment: Defined as corrective velocity in m/s per m position error
+param set-default MPC_XY_VEL_P_ACC 3 #Proportional gain for horizontal velocity error  Comment: Defined as corrective acceleration in m/s^2 per m/s velocity error
+param set-default MPC_XY_VEL_I_ACC 4
+param set-default MPC_XY_VEL_D_ACC 0.1
+
+param set-default NAV_ACC_RAD 5   #Comment: Default acceptance radius, overridden by acceptance radius of waypoint if set. For fixed wing the npfg switch distance is used for horizonta acceptance.
+param set-default NAV_LOITER_RAD 80  #Default value of loiter radius in FW mode (e.g. for Loiter mode).
+
+param set-default VT_F_TRANS_DUR 1.5 #Comment: Time in seconds used for a transition
+param set-default VT_F_TRANS_THR 0.7 #Target throttle value for the transition to fixed-wing flight
+param set-default VT_TYPE 0  # VTOL Type (Tailsitter=0, Tiltrotor=1, Standard=2)
+
+param set-default WV_EN 0 #Enable weathervane
+
+set MAV_TYPE 19
+
+#MAVLink airframe type Values:
+#
+#    0: Generic micro air vehicle
+#    1: Fixed wing aircraft
+#    2: Quadrotor
+#    3: Coaxial helicopter
+#    4: Normal helicopter with tail rotor
+#    7: Airship, controlled
+#    8: Free balloon, uncontrolled
+#    10: Ground rover
+#    11: Surface vessel, boat, ship
+#    12: Submarine
+#    13: Hexarotor
+#    14: Octorotor
+#    15: Tricopter
+#    19: VTOL Two-rotor Tailsitter
+#    20: VTOL Quad-rotor Tailsitter
+#    21: VTOL Tiltrotor
+#    22: VTOL Standard (separate fixed rotors for hover and cruise flight)
+#    23: VTOL Tailsitter
+#
+set MIXER_FILE etc/mixers-sitl/dual_rotor_vtol.main.mix
+set MIXER custom
