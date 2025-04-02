@@ -94,8 +94,8 @@ px4_add_romfs_files(
 	4021_gz_AWE_tailsitter
 	4022_gz_Dual_Rotor_tailsitter
 	4023_gz_tether_cable
+	4024_gz_tethered_lin
 	4080_gz_tarot680_lidar
-	4081_gz_tethered_lin
 
 	6011_gazebo-classic_typhoon_h480
 	6011_gazebo-classic_typhoon_h480.post
