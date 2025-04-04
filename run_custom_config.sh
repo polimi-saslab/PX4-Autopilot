@@ -3,4 +3,4 @@
 ############## WIP ##############
 
 # Set plugin lib path for force plugin
-export GZ_SIM_SYSTEM_PLUGIN_PATH=~/tether_control_ws/install/tether_control/lib/
+echo 'export GZ_SIM_SYSTEM_PLUGIN_PATH=~/tether_control_ws/install/tether_control/lib/' >> ~/.bashrc
