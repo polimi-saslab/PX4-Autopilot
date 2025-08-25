@@ -1,3 +1,0 @@
-PX4_SIM_MODEL=${PX4_SIM_MODEL:=tether_cable}
-
-. ${R}etc/init.d-posix/airframes/4080_gz_tarot680_lidar
