@@ -279,7 +279,7 @@ bool GZBridge::subscribeDistanceSensor(bool required)
 bool GZBridge::subscribeAirspeed(bool required)
 {
 	std::string airspeed_topic = "/world/" + _world_name + "/model/" + _model_name +
-				     "/link/airspeed_link/sensor/air_speed/air_speed";
+				     "/link/base_link/sensor/air_speed_sensor/air_speed";
 
 	if (!_node.Subscribe(airspeed_topic, &GZBridge::airspeedCallback, this)) {
 		PX4_ERR("failed to subscribe to %s", airspeed_topic.c_str());
