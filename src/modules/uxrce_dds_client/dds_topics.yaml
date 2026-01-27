@@ -108,11 +108,11 @@ publications:
 
   - topic: /fmu/out/actuator_motors
     type: px4_msgs::msg::ActuatorMotors
-    rate_limit: 500.
+    rate_limit: 100.
 
   - topic: /fmu/out/actuator_servos
     type: px4_msgs::msg::ActuatorServos
-    rate_limit: 500.
+    rate_limit: 100.
 
 # Create uORB::Publication
 subscriptions:
