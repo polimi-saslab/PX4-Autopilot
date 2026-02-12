@@ -12,7 +12,7 @@ PX4_GZ_WORLD=${PX4_GZ_WORLD:=hitl}
 
 PX4_GZ_MODEL_NAME=${PX4_GZ_MODEL_NAME:=awetailsitter_hitl}
 
-param set-default UXRCE_NS_IDX 20
+param set-default UXRCE_DDS_NS_IDX 20
 
 param set-default SIM_GZ_EN 1 # Gazebo bridge
 
