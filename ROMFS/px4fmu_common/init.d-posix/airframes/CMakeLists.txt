@@ -34,6 +34,7 @@
 px4_add_romfs_files(
 
 	1001_gz_awetailsitter
+	1002_gz_awetailsitter_hitl
 
 	1010_gazebo-classic_iris_opt_flow
 	1010_gazebo-classic_iris_opt_flow.post

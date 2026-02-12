@@ -8,9 +8,9 @@
 . ${R}etc/init.d/rc.vtol_defaults
 
 PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
-PX4_GZ_WORLD=${PX4_GZ_WORLD:=sim}
+PX4_GZ_WORLD=${PX4_GZ_WORLD:=hitl}
 
-PX4_GZ_MODEL_NAME=${PX4_GZ_MODEL_NAME:=awetailsitter}
+PX4_GZ_MODEL_NAME=${PX4_GZ_MODEL_NAME:=awetailsitter_hitl}
 
 param set-default UXRCE_NS_IDX 20
 
