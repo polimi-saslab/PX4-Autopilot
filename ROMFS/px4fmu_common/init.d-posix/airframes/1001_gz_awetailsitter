@@ -32,12 +32,12 @@ param set-default CA_ROTOR0_PY	-0.80
 param set-default CA_ROTOR0_PZ	0.00
 
 param set-default CA_ROTOR1_KM	0.05
-param set-default CA_ROTOR1_PX	0.00
+param set-default CA_ROTOR1_PX	0.05
 param set-default CA_ROTOR1_PY	-0.30
 param set-default CA_ROTOR1_PZ	0.00
 
 param set-default CA_ROTOR2_KM	-0.05
-param set-default CA_ROTOR2_PX	0.00
+param set-default CA_ROTOR2_PX	0.05
 param set-default CA_ROTOR2_PY	0.30
 param set-default CA_ROTOR2_PZ	0.00
 
@@ -140,6 +140,7 @@ param set-default SENS_BOARD_ROT 6
 
 # Other params
 param set-default FD_FAIL_R 70
+param set-default FD_ESCS_EN 0
 
 param set-default FW_P_TC 0.6
 
