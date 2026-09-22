@@ -47,14 +47,14 @@ publications:
 
   - topic: /fmu/out/rc_channels
     type: px4_msgs::msg::RcChannels
-    rate_limit: 5.
+    rate_limit: 10.
 
   # - topic: /fmu/out/sensor_combined
   #   type: px4_msgs::msg::SensorCombined
 
-  # - topic: /fmu/out/timesync_status
-  #   type: px4_msgs::msg::TimesyncStatus
-  #   rate_limit: 10.
+  - topic: /fmu/out/timesync_status
+    type: px4_msgs::msg::TimesyncStatus
+    rate_limit: 10.
 
   # - topic: /fmu/out/transponder_report
   #   type: px4_msgs::msg::TransponderReport
@@ -105,7 +105,7 @@ publications:
 
   - topic: /fmu/out/vehicle_odometry
     type: px4_msgs::msg::VehicleOdometry
-    rate_limit: 50.
+    rate_limit: 100.
 
   - topic: /fmu/out/vehicle_status
     type: px4_msgs::msg::VehicleStatus
