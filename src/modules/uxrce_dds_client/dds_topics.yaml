@@ -11,8 +11,8 @@ publications:
   - topic: /fmu/out/arming_check_request
     type: px4_msgs::msg::ArmingCheckRequest
 
-  - topic: /fmu/out/setpoint_config_reply
-    type: px4_msgs::msg::SetpointConfigReply
+  # - topic: /fmu/out/setpoint_config_reply
+  #   type: px4_msgs::msg::SetpointConfigReply
 
   # - topic: /fmu/out/mode_completed
   #   type: px4_msgs::msg::ModeCompleted
@@ -59,19 +59,19 @@ publications:
   # - topic: /fmu/out/transponder_report
   #   type: px4_msgs::msg::TransponderReport
 
-  - topic: /fmu/out/position_setpoint_triplet
-    type: px4_msgs::msg::PositionSetpointTriplet
-    rate_limit: 5.
+  # - topic: /fmu/out/position_setpoint_triplet
+  #   type: px4_msgs::msg::PositionSetpointTriplet
+  #   rate_limit: 5.
 
-  - topic: /fmu/out/sensor_combined
-    type: px4_msgs::msg::SensorCombined
+  # - topic: /fmu/out/sensor_combined
+  #   type: px4_msgs::msg::SensorCombined
 
   - topic: /fmu/out/timesync_status
     type: px4_msgs::msg::TimesyncStatus
     rate_limit: 10.
 
-  - topic: /fmu/out/transponder_report
-    type: px4_msgs::msg::TransponderReport
+  # - topic: /fmu/out/transponder_report
+  #   type: px4_msgs::msg::TransponderReport
 
   # - topic: /fmu/out/vehicle_angular_velocity
   #   type: px4_msgs::msg::VehicleAngularVelocity
@@ -105,7 +105,7 @@ publications:
 
   - topic: /fmu/out/vehicle_odometry
     type: px4_msgs::msg::VehicleOdometry
-    rate_limit: 50  .
+    rate_limit: 50.
 
   - topic: /fmu/out/vehicle_status
     type: px4_msgs::msg::VehicleStatus
@@ -134,16 +134,16 @@ publications:
   #   type: px4_msgs::msg::ActuatorServos
   #   rate_limit: 100
 
-  - topic: /fmu/out/config_overrides_confirm
-    type: px4_msgs::msg::ConfigOverrides
+  # - topic: /fmu/out/config_overrides_confirm
+  #   type: px4_msgs::msg::ConfigOverrides
 
-  - topic: /fmu/out/vtx
-    type: px4_msgs::msg::Vtx
-    rate_limit: 1.
+  # - topic: /fmu/out/vtx
+  #   type: px4_msgs::msg::Vtx
+  #   rate_limit: 1.
 
-  - topic: /fmu/out/input_rc
-    type: px4_msgs::msg::InputRc
-    rate_limit: 10.
+  # - topic: /fmu/out/input_rc
+  #   type: px4_msgs::msg::InputRc
+  #   rate_limit: 10.
 
 # Create uORB::Publication
 subscriptions:
@@ -153,11 +153,11 @@ subscriptions:
   # - topic: /fmu/in/unregister_ext_component
   #   type: px4_msgs::msg::UnregisterExtComponent
 
-  - topic: /fmu/in/setpoint_config
-    type: px4_msgs::msg::SetpointConfig
+  # - topic: /fmu/in/setpoint_config
+  #   type: px4_msgs::msg::SetpointConfig
 
-  - topic: /fmu/in/config_overrides_request
-    type: px4_msgs::msg::ConfigOverrides
+  # - topic: /fmu/in/config_overrides_request
+  #   type: px4_msgs::msg::ConfigOverrides
 
   # - topic: /fmu/in/arming_check_reply
   #   type: px4_msgs::msg::ArmingCheckReply
@@ -225,8 +225,8 @@ subscriptions:
   - topic: /fmu/in/actuator_servos
     type: px4_msgs::msg::ActuatorServos
 
-  - topic: /fmu/in/fixed_wing_longitudinal_setpoint
-    type: px4_msgs::msg::FixedWingLongitudinalSetpoint
+  # - topic: /fmu/in/fixed_wing_longitudinal_setpoint
+  #   type: px4_msgs::msg::FixedWingLongitudinalSetpoint
 
   # - topic: /fmu/in/fixed_wing_lateral_setpoint
   #   type: px4_msgs::msg::FixedWingLateralSetpoint
