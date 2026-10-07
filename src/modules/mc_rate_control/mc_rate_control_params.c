@@ -43,7 +43,7 @@
  * Roll rate proportional gain, i.e. control output for angular speed error 1 rad/s.
  *
  * @min 0.01
- * @max 0.5
+ * @max 5.0
  * @decimal 3
  * @increment 0.01
  * @group Multicopter Rate Control
@@ -80,7 +80,7 @@ PARAM_DEFINE_FLOAT(MC_RR_INT_LIM, 0.30f);
  * Roll rate differential gain. Small values help reduce fast oscillations. If value is too big oscillations will appear again.
  *
  * @min 0.0
- * @max 0.01
+ * @max 0.5
  * @decimal 4
  * @increment 0.0005
  * @group Multicopter Rate Control
@@ -124,7 +124,7 @@ PARAM_DEFINE_FLOAT(MC_ROLLRATE_K, 1.0f);
  * Pitch rate proportional gain, i.e. control output for angular speed error 1 rad/s.
  *
  * @min 0.01
- * @max 0.6
+ * @max 5.0
  * @decimal 3
  * @increment 0.01
  * @group Multicopter Rate Control
@@ -204,7 +204,7 @@ PARAM_DEFINE_FLOAT(MC_PITCHRATE_K, 1.0f);
  * Yaw rate proportional gain, i.e. control output for angular speed error 1 rad/s.
  *
  * @min 0.0
- * @max 0.6
+ * @max 5.0
  * @decimal 3
  * @increment 0.01
  * @group Multicopter Rate Control
