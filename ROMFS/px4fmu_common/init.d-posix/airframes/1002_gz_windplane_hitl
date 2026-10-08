@@ -202,6 +202,8 @@ param set-default MPC_VEL_MANUAL   2
 param set-default MPC_XY_VEL_MAX   2
 
 # Other params
+param set-default EKF2_MAG_TYPE 6 # force the use of magnetometer always to avoid odometry reset after takeoff (automatic heading source switching)
+
 param set-default FD_FAIL_R 70
 param set-default FD_ESCS_EN 0
 
