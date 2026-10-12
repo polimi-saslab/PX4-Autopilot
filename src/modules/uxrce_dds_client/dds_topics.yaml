@@ -53,8 +53,9 @@ publications:
   # - topic: /fmu/out/transponder_report
   #   type: px4_msgs::msg::TransponderReport
 
-  # - topic: /fmu/out/vehicle_angular_velocity
-  #   type: px4_msgs::msg::VehicleAngularVelocity
+  - topic: /fmu/out/vehicle_angular_velocity
+    type: px4_msgs::msg::VehicleAngularVelocity
+    rate_limit: 50.
 
   - topic: /fmu/out/vehicle_land_detected
     type: px4_msgs::msg::VehicleLandDetected
@@ -62,6 +63,7 @@ publications:
 
   - topic: /fmu/out/vehicle_attitude
     type: px4_msgs::msg::VehicleAttitude
+    rate_limit: 50.
 
   # - topic: /fmu/out/vehicle_control_mode
   #   type: px4_msgs::msg::VehicleControlMode
@@ -84,6 +86,7 @@ publications:
 
   - topic: /fmu/out/vehicle_odometry
     type: px4_msgs::msg::VehicleOdometry
+    rate_limit: 100.
 
   - topic: /fmu/out/vehicle_status
     type: px4_msgs::msg::VehicleStatus
@@ -111,6 +114,17 @@ publications:
   - topic: /fmu/out/actuator_servos
     type: px4_msgs::msg::ActuatorServos
     rate_limit: 100.
+
+  ### Intermediate topics for PID loops debugging
+
+  - topic: /fmu/out/vehicle_rates_setpoint
+    type: px4_msgs::msg::VehicleRatesSetpoint
+    rate_limit: 100.
+
+  - topic: /fmu/out/vehicle_attitude_setpoint
+    type: px4_msgs::msg::VehicleAttitudeSetpoint
+    rate_limit: 100.
+
 
 # Create uORB::Publication
 subscriptions:
