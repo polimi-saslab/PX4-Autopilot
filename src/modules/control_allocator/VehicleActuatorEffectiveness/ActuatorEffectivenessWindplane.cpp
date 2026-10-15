@@ -6,8 +6,81 @@
 
 #include "ActuatorEffectivenessWindplane.hpp"
 
+#include <lib/mathlib/mathlib.h>
+
+using namespace matrix;
+
 ActuatorEffectivenessWindplane::ActuatorEffectivenessWindplane(ModuleParams *parent) : ModuleParams(parent)
 {
+	for (unsigned i = 0; i < NUM_ROTORS_MAX; ++i) {
+		char buffer[17];
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MX", i);
+		_param_handles[i].effectiveness[ControlAxis::ROLL] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MY", i);
+		_param_handles[i].effectiveness[ControlAxis::PITCH] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MZ", i);
+		_param_handles[i].effectiveness[ControlAxis::YAW] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FX", i);
+		_param_handles[i].effectiveness[ControlAxis::THRUST_X] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FY", i);
+		_param_handles[i].effectiveness[ControlAxis::THRUST_Y] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FZ", i);
+		_param_handles[i].effectiveness[ControlAxis::THRUST_Z] = param_find(buffer);
+	}
+
+	for (unsigned i = 0; i < MAX_COUNT; ++i) {
+		const unsigned j = NUM_ROTORS_MAX + i;
+		char buffer[17];
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MX", i);
+		_param_handles[j].effectiveness[ControlAxis::ROLL] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MY", i);
+		_param_handles[j].effectiveness[ControlAxis::PITCH] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MZ", i);
+		_param_handles[j].effectiveness[ControlAxis::YAW] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FX", i);
+		_param_handles[j].effectiveness[ControlAxis::THRUST_X] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FY", i);
+		_param_handles[j].effectiveness[ControlAxis::THRUST_Y] = param_find(buffer);
+		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FZ", i);
+		_param_handles[j].effectiveness[ControlAxis::THRUST_Z] = param_find(buffer);
+	}
+
+	updateParams();
+}
+
+void ActuatorEffectivenessWindplane::updateParams()
+{
+	ModuleParams::updateParams();
+
+	_wrench.num_rotors = math::min(NUM_ROTORS_MAX, static_cast<int>(_param_ca_rotor_count.get()));
+	_wrench.num_servos = math::min(MAX_COUNT, static_cast<int>(_param_ca_sv_cs_count.get()));
+
+	for (int i = 0; i < _wrench.num_rotors; ++i) {
+		ActuatorWrench &wrench = _wrench._wrenches[i];
+		const ParamHandles &handles = _param_handles[i];
+
+		for (int j = 0; j < NUM_AXES; ++j) {
+			float effectiveness = 0.f;
+
+			if (param_get(handles.effectiveness[j], &effectiveness) == PX4_OK) {
+				wrench.setEffectiveness(static_cast<ControlAxis>(j), effectiveness);
+			}
+		}
+	}
+
+	for (int i = 0; i < _wrench.num_servos; ++i) {
+		const int j = NUM_ROTORS_MAX + i;
+		ActuatorWrench &wrench = _wrench._wrenches[j];
+		const ParamHandles &handles = _param_handles[j];
+
+		for (int k = 0; k < NUM_AXES; ++k) {
+			float effectiveness = 0.f;
+
+			if (param_get(handles.effectiveness[k], &effectiveness) == PX4_OK) {
+				wrench.setEffectiveness(static_cast<ControlAxis>(k), effectiveness);
+			}
+		}
+	}
 }
 
 bool ActuatorEffectivenessWindplane::getEffectivenessMatrix(Configuration &configuration,
@@ -17,28 +90,25 @@ bool ActuatorEffectivenessWindplane::getEffectivenessMatrix(Configuration &confi
 		return false;
 	}
 
-	// Placeholder allocation matrix: motors 1-4, then control surfaces 1-2.
-	// Rows: roll, pitch, yaw, thrust X, thrust Y, thrust Z.
-	// Columns: motors 1-4, then control surfaces 1-2.
-	static constexpr float effectiveness[NUM_AXES][6] = {
-		{1.f, 0.f, 0.f, 0.f, 0.f, 0.f}, // roll
-		{0.f, 1.f, 0.f, 0.f, 0.f, 0.f}, // pitch
-		{0.f, 0.f, 1.f, 0.f, 0.f, 0.f}, // yaw
-		{0.f, 0.f, 0.f, 1.f, 0.f, 0.f}, // thrust X
-		{0.f, 0.f, 0.f, 0.f, 1.f, 0.f}, // thrust Y
-		{0.f, 0.f, 0.f, 0.f, 0.f, 1.f}, // thrust Z
-	};
-
 	configuration.selected_matrix = 0;
 
-	for (int axis = 0; axis < NUM_AXES; ++axis) {
-		for (int actuator = 0; actuator < 6; ++actuator) {
-			configuration.effectiveness_matrices[0](axis, actuator) = effectiveness[axis][actuator];
+	// motors
+	for (int i = 0; i < _wrench.num_rotors; ++i) {
+		const ActuatorWrench &wrench = _wrench._wrenches[i];
+
+		if (configuration.addActuator(ActuatorType::MOTORS, wrench.torque, wrench.thrust) < 0) {
+			return false;
 		}
 	}
 
-	configuration.actuatorsAdded(ActuatorType::MOTORS, 4);
-	configuration.actuatorsAdded(ActuatorType::SERVOS, 2);
+	// servos
+	for (int i = 0; i < _wrench.num_servos; ++i) {
+		const ActuatorWrench &wrench = _wrench._wrenches[NUM_ROTORS_MAX + i];
+
+		if (configuration.addActuator(ActuatorType::SERVOS, wrench.torque, wrench.thrust) < 0) {
+			return false;
+		}
+	}
 
 	return true;
 }

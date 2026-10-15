@@ -43,7 +43,70 @@ public:
 
 	ActuatorEffectivenessWindplane(ModuleParams *parent);
 	virtual ~ActuatorEffectivenessWindplane() = default;
+
 	bool getEffectivenessMatrix(Configuration &configuration, EffectivenessUpdateReason external_update) override;
 
 	const char *name() const override { return "Windplane"; }
+
+	static constexpr int NUM_ROTORS_MAX = 12;
+	static constexpr int MAX_COUNT = 4;
+
+	static constexpr int NUM_ACTUATORS_TOT_MAX = NUM_ROTORS_MAX + MAX_COUNT;
+
+private:
+	void updateParams() override;
+
+	/** @brief Torque and thrust effectiveness contributed by single actuator. */
+	struct ActuatorWrench {
+		matrix::Vector3f torque{};
+		matrix::Vector3f thrust{};
+
+		void setEffectiveness(ControlAxis axis, float value)
+		{
+			switch (axis) {
+			case ControlAxis::ROLL:
+				torque(0) = value;
+				break;
+
+			case ControlAxis::PITCH:
+				torque(1) = value;
+				break;
+
+			case ControlAxis::YAW:
+				torque(2) = value;
+				break;
+
+			case ControlAxis::THRUST_X:
+				thrust(0) = value;
+				break;
+
+			case ControlAxis::THRUST_Y:
+				thrust(1) = value;
+				break;
+
+			case ControlAxis::THRUST_Z:
+				thrust(2) = value;
+				break;
+			}
+		}
+	};
+
+	/** @brief Full wrench. */
+	struct Wrench {
+		ActuatorWrench _wrenches[NUM_ACTUATORS_TOT_MAX];
+		int num_rotors{0};
+		int num_servos{0};
+	};
+
+	struct ParamHandles {
+		param_t effectiveness[NUM_AXES] {};
+	};
+
+	ParamHandles _param_handles[NUM_ACTUATORS_TOT_MAX] {};
+	Wrench _wrench{};
+
+	DEFINE_PARAMETERS(
+		(ParamInt<px4::params::CA_ROTOR_COUNT>) _param_ca_rotor_count,
+		(ParamInt<px4::params::CA_SV_CS_COUNT>) _param_ca_sv_cs_count
+	)
 };
