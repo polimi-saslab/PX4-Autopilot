@@ -14,34 +14,34 @@ ActuatorEffectivenessWindplane::ActuatorEffectivenessWindplane(ModuleParams *par
 {
 	for (unsigned i = 0; i < NUM_ROTORS_MAX; ++i) {
 		char buffer[17];
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MX", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_MX", i);
 		_param_handles[i].effectiveness[ControlAxis::ROLL] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MY", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_MY", i);
 		_param_handles[i].effectiveness[ControlAxis::PITCH] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_MZ", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_MZ", i);
 		_param_handles[i].effectiveness[ControlAxis::YAW] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FX", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_FX", i);
 		_param_handles[i].effectiveness[ControlAxis::THRUST_X] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FY", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_FY", i);
 		_param_handles[i].effectiveness[ControlAxis::THRUST_Y] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_M%u_FZ", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_R%u_FZ", i);
 		_param_handles[i].effectiveness[ControlAxis::THRUST_Z] = param_find(buffer);
 	}
 
 	for (unsigned i = 0; i < MAX_COUNT; ++i) {
 		const unsigned j = NUM_ROTORS_MAX + i;
 		char buffer[17];
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MX", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_MX", i);
 		_param_handles[j].effectiveness[ControlAxis::ROLL] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MY", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_MY", i);
 		_param_handles[j].effectiveness[ControlAxis::PITCH] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_MZ", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_MZ", i);
 		_param_handles[j].effectiveness[ControlAxis::YAW] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FX", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_FX", i);
 		_param_handles[j].effectiveness[ControlAxis::THRUST_X] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FY", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_FY", i);
 		_param_handles[j].effectiveness[ControlAxis::THRUST_Y] = param_find(buffer);
-		snprintf(buffer, sizeof(buffer), "CA_WP_S%u_FZ", i);
+		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_FZ", i);
 		_param_handles[j].effectiveness[ControlAxis::THRUST_Z] = param_find(buffer);
 	}
 
@@ -92,7 +92,7 @@ bool ActuatorEffectivenessWindplane::getEffectivenessMatrix(Configuration &confi
 
 	configuration.selected_matrix = 0;
 
-	// motors
+	// rotors
 	for (int i = 0; i < _wrench.num_rotors; ++i) {
 		const ActuatorWrench &wrench = _wrench._wrenches[i];
 
