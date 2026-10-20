@@ -91,3 +91,43 @@ TEST(ControlAllocationMetricTest, AllZeroCase)
 	EXPECT_EQ(actuator_sp, actuator_sp_expected);
 	EXPECT_EQ(control_allocated, control_allocated_expected);
 }
+
+TEST(ControlAllocationMetricTest, MetricAllocationSkipsNormalization)
+{
+	ControlAllocationPseudoInverse normalized;
+	ControlAllocationPseudoInverse metric;
+
+	Matrix<float, 6, 16> effectiveness;
+	effectiveness(0, 0) = 1.f;
+	effectiveness(1, 1) = 2.f;
+	effectiveness(2, 2) = 4.f;
+	effectiveness(5, 3) = 8.f;
+
+	Vector<float, 16> actuator_trim;
+	Vector<float, 16> linearization_point;
+	Vector<float, 6> control_sp;
+	control_sp(0) = 1.f;
+	control_sp(1) = 1.f;
+	control_sp(2) = 1.f;
+	control_sp(5) = 1.f;
+
+	normalized.setNormalizeRPY(true);
+	normalized.setEffectivenessMatrix(effectiveness, actuator_trim, linearization_point, 4, true);
+	normalized.setControlSetpoint(control_sp);
+	normalized.allocate();
+
+	metric.setMetricAllocation(true);
+	metric.setNormalizeRPY(true);
+	metric.setEffectivenessMatrix(effectiveness, actuator_trim, linearization_point, 4, true);
+	metric.setControlSetpoint(control_sp);
+	metric.allocate();
+
+	EXPECT_NEAR(normalized.getActuatorSetpoint()(0), 1.f / sqrtf(2.f), 1e-5f);
+	EXPECT_NEAR(metric.getActuatorSetpoint()(0), 1.f, 1e-5f);
+	EXPECT_NEAR(normalized.getActuatorSetpoint()(1), 1.f / (2.f * sqrtf(2.f)), 1e-5f);
+	EXPECT_NEAR(metric.getActuatorSetpoint()(1), 0.5f, 1e-5f);
+	EXPECT_NEAR(normalized.getActuatorSetpoint()(2), 1.f, 1e-5f);
+	EXPECT_NEAR(metric.getActuatorSetpoint()(2), 0.25f, 1e-5f);
+	EXPECT_NEAR(normalized.getActuatorSetpoint()(3), 1.f, 1e-5f);
+	EXPECT_NEAR(metric.getActuatorSetpoint()(3), 0.125f, 1e-5f);
+}

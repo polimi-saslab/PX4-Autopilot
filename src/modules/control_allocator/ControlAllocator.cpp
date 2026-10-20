@@ -127,6 +127,7 @@ ControlAllocator::parameters_updated()
 	}
 
 	for (int i = 0; i < _num_control_allocation; ++i) {
+		_control_allocation[i]->setMetricAllocation(_param_ca_metric_alloc.get());
 		_control_allocation[i]->updateParameters();
 	}
 

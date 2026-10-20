@@ -98,6 +98,14 @@ public:
 	 */
 	virtual void allocate() = 0;
 
+
+	/**
+	 * @brief Set allocation metric
+	 *
+	 * @param metric_allocation
+	 */
+	virtual void setMetricAllocation(bool metric_allocation) {}
+
 	/**
 	 * Set actuator failure flag
 	 * This prevents a change of the scaling in the matrix normalization step

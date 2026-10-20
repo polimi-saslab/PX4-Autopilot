@@ -48,6 +48,16 @@ parameters:
                 2: Automatic
             default: 2
 
+        CA_METRIC_ALLOC:
+            description:
+                short: Use metric allocation
+                long: |
+                  Use metric allocation with the pseudo-inverse algorithm. When disabled, the mixer is normalized.
+                  This setting only applies when the selected allocation method uses the
+                  pseudo-inverse algorithm.
+            type: boolean
+            default: 0
+
         # Motor parameters
         CA_R_REV:
             description:
