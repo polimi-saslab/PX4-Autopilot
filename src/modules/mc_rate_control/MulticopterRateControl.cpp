@@ -255,6 +255,10 @@ MulticopterRateControl::Run()
 				}
 			}
 
+			// Keep the controller's internal thrust normalized, and convert at the
+			// allocator interface.
+			vehicle_thrust_setpoint.xyz[2] *= _param_mc_thr_sp_scl.get();
+
 			vehicle_thrust_setpoint.timestamp_sample = angular_velocity.timestamp_sample;
 			vehicle_thrust_setpoint.timestamp = hrt_absolute_time();
 			_vehicle_thrust_setpoint_pub.publish(vehicle_thrust_setpoint);

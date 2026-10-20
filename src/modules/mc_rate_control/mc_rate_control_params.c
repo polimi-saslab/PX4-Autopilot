@@ -293,6 +293,22 @@ PARAM_DEFINE_FLOAT(MC_YAWRATE_K, 1.0f);
 PARAM_DEFINE_INT32(MC_BAT_SCALE_EN, 0);
 
 /**
+ * Scale thrust setpoint before publishing to control allocation.
+ *
+ * The vertical controllers use normalized thrust internally. Set this
+ * to the total thrust in newtons at a normalized setpoint of 1 when the
+ * allocator uses a metric effectiveness matrix.
+ *
+ * @min 0.01
+ * @max 1000
+ * @unit N
+ * @decimal 2
+ * @increment 0.1
+ * @group Multicopter Rate Control
+ */
+PARAM_DEFINE_FLOAT(MC_THR_SP_SCL, 1.f);
+
+/**
  * Low pass filter cutoff frequency for yaw torque setpoint
  *
  * Reduces vibrations by lowering high frequency torque caused by rotor acceleration.
