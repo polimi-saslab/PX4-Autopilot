@@ -46,12 +46,22 @@ public:
 
 	bool getEffectivenessMatrix(Configuration &configuration, EffectivenessUpdateReason external_update) override;
 
+	void getDesiredAllocationMethod(AllocationMethod allocation_method_out[MAX_NUM_MATRICES]) const override
+	{
+		allocation_method_out[0] = AllocationMethod::PSEUDO_INVERSE;
+	}
+
+	void getNormalizeRPY(bool normalize[MAX_NUM_MATRICES]) const override
+	{
+		normalize[0] = false;
+	}
+
 	const char *name() const override { return "Windplane"; }
 
 	static constexpr int NUM_ROTORS_MAX = 12;
-	static constexpr int MAX_COUNT = 4;
+	static constexpr int NUM_SERVOS_MAX = 4;
 
-	static constexpr int NUM_ACTUATORS_TOT_MAX = NUM_ROTORS_MAX + MAX_COUNT;
+	static constexpr int NUM_ACTUATORS_TOT_MAX = NUM_ROTORS_MAX + NUM_SERVOS_MAX;
 
 private:
 	void updateParams() override;
