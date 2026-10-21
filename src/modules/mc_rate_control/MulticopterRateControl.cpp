@@ -255,9 +255,15 @@ MulticopterRateControl::Run()
 				}
 			}
 
-			// Keep the controller's internal thrust normalized, and convert at the
-			// allocator interface.
-			vehicle_thrust_setpoint.xyz[2] *= _param_mc_thr_sp_scl.get();
+			if (_param_ca_metric_alloc.get()) {
+				vehicle_torque_setpoint.xyz[0] *= _param_mc_roll_tq_scl.get();
+				vehicle_torque_setpoint.xyz[1] *= _param_mc_pitch_tq_scl.get();
+				vehicle_torque_setpoint.xyz[2] *= _param_mc_yaw_tq_scl.get();
+
+				vehicle_thrust_setpoint.xyz[0] *= _param_mc_thr_xy_scl.get();
+				vehicle_thrust_setpoint.xyz[1] *= _param_mc_thr_xy_scl.get();
+				vehicle_thrust_setpoint.xyz[2] *= _param_mc_thr_z_scl.get();
+			}
 
 			vehicle_thrust_setpoint.timestamp_sample = angular_velocity.timestamp_sample;
 			vehicle_thrust_setpoint.timestamp = hrt_absolute_time();

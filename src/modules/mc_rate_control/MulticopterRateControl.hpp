@@ -153,6 +153,12 @@ private:
 		(ParamFloat<px4::params::MC_YAWRATE_D>) _param_mc_yawrate_d,
 		(ParamFloat<px4::params::MC_YAWRATE_FF>) _param_mc_yawrate_ff,
 		(ParamFloat<px4::params::MC_YAWRATE_K>) _param_mc_yawrate_k,
+		(ParamFloat<px4::params::MC_ROLL_TQ_SCL>) _param_mc_roll_tq_scl,
+		(ParamFloat<px4::params::MC_PITCH_TQ_SCL>) _param_mc_pitch_tq_scl,
+		(ParamFloat<px4::params::MC_YAW_TQ_SCL>) _param_mc_yaw_tq_scl,
+		(ParamBool<px4::params::CA_METRIC_ALLOC>) _param_ca_metric_alloc,
+		(ParamFloat<px4::params::MC_THR_XY_SCL>) _param_mc_thr_xy_scl,
+		(ParamFloat<px4::params::MC_THR_Z_SCL>) _param_mc_thr_z_scl,
 		(ParamFloat<px4::params::MC_YAW_TQ_CUTOFF>) _param_mc_yaw_tq_cutoff,
 
 		(ParamFloat<px4::params::MC_ACRO_R_MAX>) _param_mc_acro_r_max,
@@ -164,6 +170,5 @@ private:
 		(ParamFloat<px4::params::MC_ACRO_SUPEXPOY>) _param_mc_acro_supexpoy,		/**< superexpo stick curve shape (yaw) */
 
 		(ParamBool<px4::params::MC_BAT_SCALE_EN>) _param_mc_bat_scale_en,
-		(ParamFloat<px4::params::MC_THR_SP_SCL>) _param_mc_thr_sp_scl
 	)
 };

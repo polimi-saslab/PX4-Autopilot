@@ -279,6 +279,51 @@ PARAM_DEFINE_FLOAT(MC_YAWRATE_FF, 0.0f);
 PARAM_DEFINE_FLOAT(MC_YAWRATE_K, 1.0f);
 
 /**
+ * Scale roll torque setpoint for metric control allocation.
+ *
+ * Converts the normalized rate controller output to the torque units used by
+ * the actuator effectiveness matrix when CA_METRIC_ALLOC is enabled.
+ *
+ * @min 0.001
+ * @max 1000
+ * @unit Nm
+ * @decimal 3
+ * @increment 0.01
+ * @group Multicopter Rate Control
+ */
+PARAM_DEFINE_FLOAT(MC_ROLL_TQ_SCL, 1.f);
+
+/**
+ * Scale pitch torque setpoint for metric control allocation.
+ *
+ * Converts the normalized rate controller output to the torque units used by
+ * the actuator effectiveness matrix when CA_METRIC_ALLOC is enabled.
+ *
+ * @min 0.001
+ * @max 1000
+ * @unit Nm
+ * @decimal 3
+ * @increment 0.01
+ * @group Multicopter Rate Control
+ */
+PARAM_DEFINE_FLOAT(MC_PITCH_TQ_SCL, 1.f);
+
+/**
+ * Scale yaw torque setpoint for metric control allocation.
+ *
+ * Converts the normalized rate controller output to the torque units used by
+ * the actuator effectiveness matrix when CA_METRIC_ALLOC is enabled.
+ *
+ * @min 0.001
+ * @max 1000
+ * @unit Nm
+ * @decimal 3
+ * @increment 0.01
+ * @group Multicopter Rate Control
+ */
+PARAM_DEFINE_FLOAT(MC_YAW_TQ_SCL, 1.f);
+
+/**
  * Battery power level scaler
  *
  * This compensates for voltage drop of the battery over time by attempting to
@@ -295,9 +340,9 @@ PARAM_DEFINE_INT32(MC_BAT_SCALE_EN, 0);
 /**
  * Scale thrust setpoint before publishing to control allocation.
  *
- * The vertical controllers use normalized thrust internally. Set this
- * to the total thrust in newtons at a normalized setpoint of 1 when the
- * allocator uses a metric effectiveness matrix.
+ * The multicopter controllers use normalized thrust internally. Set this to
+ * the vertical force in newtons represented by a normalized thrust setpoint
+ * of 1 when the allocator uses a metric effectiveness matrix.
  *
  * @min 0.01
  * @max 1000
@@ -306,7 +351,22 @@ PARAM_DEFINE_INT32(MC_BAT_SCALE_EN, 0);
  * @increment 0.1
  * @group Multicopter Rate Control
  */
-PARAM_DEFINE_FLOAT(MC_THR_SP_SCL, 1.f);
+PARAM_DEFINE_FLOAT(MC_THR_Z_SCL, 1.f);
+
+/**
+ * Scale lateral thrust setpoints for metric control allocation.
+ *
+ * Converts normalized multicopter X and Y thrust setpoints to force in
+ * newtons when CA_METRIC_ALLOC is enabled.
+ *
+ * @min 0.01
+ * @max 1000
+ * @unit N
+ * @decimal 2
+ * @increment 0.1
+ * @group Multicopter Rate Control
+ */
+PARAM_DEFINE_FLOAT(MC_THR_XY_SCL, 1.f);
 
 /**
  * Low pass filter cutoff frequency for yaw torque setpoint

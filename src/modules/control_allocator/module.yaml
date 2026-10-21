@@ -52,9 +52,8 @@ parameters:
             description:
                 short: Use metric allocation
                 long: |
-                  Use metric allocation with the pseudo-inverse algorithm. When disabled, the mixer is normalized.
-                  This setting only applies when the selected allocation method uses the
-                  pseudo-inverse algorithm.
+                  Use the unnormalized effectiveness matrix for allocation. Setpoints must use matching units.
+                  When disabled, the mixer is normalized.
             type: boolean
             default: 0
 
