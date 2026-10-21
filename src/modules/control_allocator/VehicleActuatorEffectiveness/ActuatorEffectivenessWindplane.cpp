@@ -28,7 +28,7 @@ ActuatorEffectivenessWindplane::ActuatorEffectivenessWindplane(ModuleParams *par
 		_param_handles[i].effectiveness[ControlAxis::THRUST_Z] = param_find(buffer);
 	}
 
-	for (unsigned i = 0; i < MAX_COUNT; ++i) {
+	for (unsigned i = 0; i < NUM_SERVOS_MAX; ++i) {
 		const unsigned j = NUM_ROTORS_MAX + i;
 		char buffer[17];
 		snprintf(buffer, sizeof(buffer), "CA_WP_SV%u_MX", i);
@@ -53,7 +53,7 @@ void ActuatorEffectivenessWindplane::updateParams()
 	ModuleParams::updateParams();
 
 	_wrench.num_rotors = math::min(NUM_ROTORS_MAX, static_cast<int>(_param_ca_rotor_count.get()));
-	_wrench.num_servos = math::min(MAX_COUNT, static_cast<int>(_param_ca_sv_cs_count.get()));
+	_wrench.num_servos = math::min(NUM_SERVOS_MAX, static_cast<int>(_param_ca_sv_cs_count.get()));
 
 	for (int i = 0; i < _wrench.num_rotors; ++i) {
 		ActuatorWrench &wrench = _wrench._wrenches[i];
