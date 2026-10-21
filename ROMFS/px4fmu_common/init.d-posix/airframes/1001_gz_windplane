@@ -19,6 +19,14 @@ param set-default SIM_GZ_EN 1 # Gazebo bridge
 param set-default MAV_TYPE 20
 
 param set-default CA_AIRFRAME 4
+param set-default CA_METRIC_ALLOC 1
+
+# max torque and thrust
+param set-default MC_THR_Z_SCL 26.0
+param set-default MC_THR_XY_SCL 26.0
+param set-default MC_ROLL_TQ_SCL 5.98
+param set-default MC_PITCH_TQ_SCL 0.91
+param set-default MC_YAW_TQ_SCL 0.65
 
 # param set-default SYS_AUTOSTART	1001
 
@@ -30,33 +38,21 @@ param set-default CA_ROTOR0_KM	-0.05
 param set-default CA_ROTOR0_PX	-0.15
 param set-default CA_ROTOR0_PY	-0.75
 param set-default CA_ROTOR0_PZ	0.00
-param set-default CA_ROTOR0_AX	0.13
-param set-default CA_ROTOR0_AY	0.00
-param set-default CA_ROTOR0_AZ	-0.87
 
 param set-default CA_ROTOR1_KM	0.05
 param set-default CA_ROTOR1_PX	0.07
 param set-default CA_ROTOR1_PY	-0.17
 param set-default CA_ROTOR1_PZ	0.00
-param set-default CA_ROTOR1_AX	0.13
-param set-default CA_ROTOR1_AY	0.00
-param set-default CA_ROTOR1_AZ	-0.87
 
 param set-default CA_ROTOR2_KM	-0.05
 param set-default CA_ROTOR2_PX	0.07
 param set-default CA_ROTOR2_PY	0.17
 param set-default CA_ROTOR2_PZ	0.00
-param set-default CA_ROTOR2_AX	0.13
-param set-default CA_ROTOR2_AY	0.00
-param set-default CA_ROTOR2_AZ	-0.87
 
 param set-default CA_ROTOR3_KM	0.05
 param set-default CA_ROTOR3_PX	-0.15
 param set-default CA_ROTOR3_PY	0.75
 param set-default CA_ROTOR3_PZ	0.00
-param set-default CA_ROTOR3_AX	0.13
-param set-default CA_ROTOR3_AY	0.00
-param set-default CA_ROTOR3_AZ	-0.87
 
 # Motors sim output params
 param set-default SIM_GZ_EC_FUNC1 101
@@ -75,7 +71,7 @@ param set-default SIM_GZ_EC_MAX3 1500
 param set-default SIM_GZ_EC_MAX4 1500
 
 # Servos (control surfaces) params
-param set-default CA_SV_CS_COUNT 7
+param set-default CA_SV_CS_COUNT 2
 
 param set-default CA_SV_CS0_TRIM	0.00
 param set-default CA_SV_CS0_TRQ_P	-0.5
@@ -89,53 +85,13 @@ param set-default CA_SV_CS1_TRQ_R	0.00
 param set-default CA_SV_CS1_TRQ_Y	0.5
 param set-default CA_SV_CS1_TYPE	1
 
-param set-default CA_SV_CS2_TRIM	0.00
-param set-default CA_SV_CS2_TRQ_P	0.00
-param set-default CA_SV_CS2_TRQ_R	0.00
-param set-default CA_SV_CS2_TRQ_Y	0.00
-param set-default CA_SV_CS2_TYPE	2
-
-param set-default CA_SV_CS3_TRIM	0.00
-param set-default CA_SV_CS3_TRQ_P	0.00
-param set-default CA_SV_CS3_TRQ_R	0.00
-param set-default CA_SV_CS3_TRQ_Y	0.00
-param set-default CA_SV_CS3_TYPE	2
-
-param set-default CA_SV_CS4_TRIM	0.00
-param set-default CA_SV_CS4_TRQ_P	0.00
-param set-default CA_SV_CS4_TRQ_R	0.00
-param set-default CA_SV_CS4_TRQ_Y	0.00
-param set-default CA_SV_CS4_TYPE	3
-
-param set-default CA_SV_CS5_TRIM	0.00
-param set-default CA_SV_CS5_TRQ_P	0.00
-param set-default CA_SV_CS5_TRQ_R	0.00
-param set-default CA_SV_CS5_TRQ_Y	0.00
-param set-default CA_SV_CS5_TYPE	3
-
 # Servos sim output params
 param set-default SIM_GZ_SV_FUNC1	201
 param set-default SIM_GZ_SV_FUNC2	202
-param set-default SIM_GZ_SV_FUNC3	203
-param set-default SIM_GZ_SV_FUNC4	204
-param set-default SIM_GZ_SV_FUNC5	205
-param set-default SIM_GZ_SV_FUNC6	206
-param set-default SIM_GZ_SV_FUNC7	207
 param set-default SIM_GZ_SV_MAX1	1000
 param set-default SIM_GZ_SV_MAX2	1000
-param set-default SIM_GZ_SV_MAX3	1000
-param set-default SIM_GZ_SV_MAX4	1000
-param set-default SIM_GZ_SV_MAX5	1000
-param set-default SIM_GZ_SV_MAX6	1000
-param set-default SIM_GZ_SV_MAX7	1000
 param set-default SIM_GZ_SV_MIN1	0
 param set-default SIM_GZ_SV_MIN2	0
-param set-default SIM_GZ_SV_MIN3	0
-param set-default SIM_GZ_SV_MIN4	0
-param set-default SIM_GZ_SV_MIN5	0
-param set-default SIM_GZ_SV_MIN6	0
-param set-default SIM_GZ_SV_MIN7	0
-param set-default SIM_GZ_SV_MIN8	0
 
 # Disable auto disarm
 param set-default COM_DISARM_PRFLT 0
@@ -160,7 +116,7 @@ param set-default MC_YAWRATE_D   0.0
 
 param set-default MC_PR_INT_LIM  0.45
 
-param set-default MC_ROLL_P     0.2
+param set-default MC_ROLL_P     1.2
 param set-default MC_PITCH_P    1.0
 param set-default MC_YAW_P      0.5
 param set-default MC_YAW_WEIGHT 0.2
@@ -174,9 +130,9 @@ param set-default MPC_TILTMAX_AIR  25
 
 # Outer loops
 param set-default MPC_XY_P         0.3
-param set-default MPC_XY_VEL_P_ACC 0.3
-param set-default MPC_XY_VEL_I_ACC 0.1
-param set-default MPC_XY_VEL_D_ACC 0.05
+param set-default MPC_XY_VEL_P_ACC 1.20
+param set-default MPC_XY_VEL_I_ACC 0.20
+param set-default MPC_XY_VEL_D_ACC 0.10
 
 # Max acceleration and jerk
 param set-default MPC_ACC_HOR_MAX  2.5
