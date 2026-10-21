@@ -49,6 +49,15 @@ parameters:
                 2: Automatic
             default: 2
 
+        CA_METRIC_ALLOC:
+            description:
+                short: Use metric allocation
+                long: |
+                  Use the unnormalized effectiveness matrix for allocation. Setpoints must use matching units.
+                  When disabled, the mixer is normalized.
+            type: boolean
+            default: 0
+
 
         # Windplane effectiveness matrix param
         CA_WP_R${i}_MX:
