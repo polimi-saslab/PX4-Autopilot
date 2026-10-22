@@ -81,6 +81,13 @@ public:
 	bool init();
 
 private:
+	/** Wrench scaling mode  */
+	enum class WrenchScaleMode : int32_t {
+		DISABLED = 0,
+		AUTOMATIC = 1,
+		MANUAL = 2
+	};
+
 	void Run() override;
 
 	/**
@@ -129,6 +136,9 @@ private:
 
 	float _energy_integration_time{0.0f};
 	float _control_energy[4] {};
+	matrix::Vector<float, 6> _allocator_control_limit_min{};
+	matrix::Vector<float, 6> _allocator_control_limit_max{};
+	bool _allocator_control_limits_valid{false};
 
 	AlphaFilter<float> _output_lpf_yaw;
 
@@ -153,6 +163,13 @@ private:
 		(ParamFloat<px4::params::MC_YAWRATE_D>) _param_mc_yawrate_d,
 		(ParamFloat<px4::params::MC_YAWRATE_FF>) _param_mc_yawrate_ff,
 		(ParamFloat<px4::params::MC_YAWRATE_K>) _param_mc_yawrate_k,
+		(ParamFloat<px4::params::CA_ROLL_TQ_SCL>) _param_ca_r_tq_scl,
+		(ParamFloat<px4::params::CA_PITCH_TQ_SCL>) _param_ca_p_tq_scl,
+		(ParamFloat<px4::params::CA_YAW_TQ_SCL>) _param_ca_y_tq_scl,
+		(ParamInt<px4::params::CA_WR_SCL_MODE>) _param_ca_wr_scl_mode,
+		(ParamBool<px4::params::CA_METRIC_ALLOC>) _param_ca_metric_alloc,
+		(ParamFloat<px4::params::CA_THR_XY_SCL>) _param_ca_thr_xy_scl,
+		(ParamFloat<px4::params::CA_THR_Z_SCL>) _param_ca_thr_z_scl,
 		(ParamFloat<px4::params::MC_YAW_TQ_CUTOFF>) _param_mc_yaw_tq_cutoff,
 
 		(ParamFloat<px4::params::MC_ACRO_R_MAX>) _param_mc_acro_r_max,

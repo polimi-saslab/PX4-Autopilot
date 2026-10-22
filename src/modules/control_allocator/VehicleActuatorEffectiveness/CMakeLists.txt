@@ -27,6 +27,8 @@ px4_add_library(VehicleActuatorEffectiveness
 	ActuatorEffectivenessTiltrotorVTOL.hpp
 	ActuatorEffectivenessTailsitterVTOL.cpp
 	ActuatorEffectivenessTailsitterVTOL.hpp
+	ActuatorEffectivenessWindplane.cpp
+	ActuatorEffectivenessWindplane.hpp
 	ActuatorEffectivenessRoverAckermann.hpp
 	ActuatorEffectivenessRoverAckermann.cpp
 	RpmControl.hpp

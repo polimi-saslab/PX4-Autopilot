@@ -98,6 +98,14 @@ public:
 	 */
 	virtual void allocate() = 0;
 
+
+	/**
+	 * @brief Set allocation metric
+	 *
+	 * @param metric_allocation
+	 */
+	virtual void setMetricAllocation(bool metric_allocation) {}
+
 	/**
 	 * Set actuator failure flag
 	 * This prevents a change of the scaling in the matrix normalization step
@@ -151,6 +159,17 @@ public:
 	 * @return Effectiveness matrix
 	 */
 	const matrix::Matrix<float, NUM_AXES, NUM_ACTUATORS> &getEffectivenessMatrix() const { return _effectiveness; }
+
+	/**
+	 * @brief Get per-axis wrench limits for the current effectiveness matrix, actuator bounds and trims.
+	 *
+	 * Each axis is bounded independently, the limits may not be achievable simultaneously.
+	 *
+	 * @param[out] minimum Minimum wrench per axis.
+	 * @param[out] maximum Maximum wrench per axis.
+	 */
+	void getControlLimits(matrix::Vector<float, NUM_AXES> &minimum,
+			      matrix::Vector<float, NUM_AXES> &maximum) const;
 
 	/**
 	 * Set the minimum actuator values

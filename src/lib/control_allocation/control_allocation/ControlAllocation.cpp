@@ -64,6 +64,27 @@ ControlAllocation::setEffectivenessMatrix(
 }
 
 void
+ControlAllocation::getControlLimits(matrix::Vector<float, NUM_AXES> &minimum,
+				    matrix::Vector<float, NUM_AXES> &maximum) const
+{
+	minimum = _control_trim;
+	maximum = _control_trim;
+
+	for (int axis = 0; axis < NUM_AXES; ++axis) {
+		for (int i = 0; i < _num_actuators; ++i) {
+			if (_actuator_max(i) < _actuator_min(i)) {
+				continue;
+			}
+
+			const float low = _effectiveness(axis, i) * (_actuator_min(i) - _actuator_trim(i));
+			const float high = _effectiveness(axis, i) * (_actuator_max(i) - _actuator_trim(i));
+			minimum(axis) += fminf(low, high);
+			maximum(axis) += fmaxf(low, high);
+		}
+	}
+}
+
+void
 ControlAllocation::setActuatorSetpoint(
 	const matrix::Vector<float, ControlAllocation::NUM_ACTUATORS> &actuator_sp)
 {

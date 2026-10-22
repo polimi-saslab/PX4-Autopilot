@@ -33,6 +33,7 @@ parameters:
                 13: Rover (Mecanum)
                 14: Spacecraft 2D
                 15: Spacecraft 3D
+                16: Windplane
             default: 0
 
         CA_METHOD:
@@ -48,6 +49,205 @@ parameters:
                 2: Automatic
             default: 2
 
+        CA_METRIC_ALLOC:
+            description:
+                short: Use metric allocation
+                long: |
+                  Use the unnormalized effectiveness matrix for allocation. Setpoints must use matching units.
+                  When disabled, the mixer is normalized.
+            type: boolean
+            default: 0
+
+
+        # Windplane effectiveness matrix param
+        CA_WP_R${i}_MX:
+            description:
+                short: Windplane Mx effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_R${i}_MY:
+            description:
+                short: Windplane My effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_R${i}_MZ:
+            description:
+                short: Windplane Mz effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_R${i}_FX:
+            description:
+                short: Windplane Fx effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_R${i}_FY:
+            description:
+                short: Windplane Fy effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_R${i}_FZ:
+            description:
+                short: Windplane Fz effectiveness for rotor ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_mc_motors
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_MX:
+            description:
+                short: Windplane Mx effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_MY:
+            description:
+                short: Windplane My effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_MZ:
+            description:
+                short: Windplane Mz effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_FX:
+            description:
+                short: Windplane Fx effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_FY:
+            description:
+                short: Windplane Fy effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_SV${i}_FZ:
+            description:
+                short: Windplane Fz effectiveness for servo ${i}
+            type: float
+            decimal: 4
+            increment: 0.0001
+            num_instances: *max_num_tilts
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WR_SCL_MODE:
+            description:
+                short: Wrench scale mode
+                long: |
+                  Selects how normalized torque and thrust setpoints are scaled when metric allocation is enabled.
+                  Disabled uses unit scales. Automatic derives scales from current allocator wrench limits.
+                  Manual uses CA_ROLL_TQ_SCL, CA_PITCH_TQ_SCL, CA_YAW_TQ_SCL, CA_THR_Z_SCL and CA_THR_XY_SCL.
+            type: enum
+            values:
+                0: Disabled
+                1: Automatic
+                2: Manual
+            default: 2
+        CA_ROLL_TQ_SCL:
+            description:
+                short: Roll torque scale
+                long: Manual scale from normalized roll torque setpoint to Nm.
+            type: float
+            unit: Nm
+            decimal: 3
+            increment: 0.01
+            min: 0.001
+            max: 1000
+            default: 1.0
+        CA_PITCH_TQ_SCL:
+            description:
+                short: Pitch torque scale
+                long: Manual scale from normalized pitch torque setpoint to Nm.
+            type: float
+            unit: Nm
+            decimal: 3
+            increment: 0.01
+            min: 0.001
+            max: 1000
+            default: 1.0
+        CA_YAW_TQ_SCL:
+            description:
+                short: Yaw torque scale
+                long: Manual scale from normalized yaw torque setpoint to Nm.
+            type: float
+            unit: Nm
+            decimal: 3
+            increment: 0.01
+            min: 0.001
+            max: 1000
+            default: 1.0
+        CA_THR_Z_SCL:
+            description:
+                short: Vertical thrust scale
+                long: Manual scale from normalized vertical thrust setpoint to N.
+            type: float
+            unit: N
+            decimal: 2
+            increment: 0.1
+            min: 0.01
+            max: 1000
+            default: 1.0
+        CA_THR_XY_SCL:
+            description:
+                short: Lateral thrust scale
+                long: Manual scale from normalized lateral thrust setpoints to N.
+            type: float
+            unit: N
+            decimal: 2
+            increment: 0.1
+            min: 0.01
+            max: 1000
+            default: 1.0
         # Motor parameters
         CA_R_REV:
             description:
@@ -1251,3 +1451,44 @@ mixer:
                             function: 'axisz'
                           - name: 'CA_ROTOR${i}_CT'
                             label: "Thrust\nCoefficient"
+
+            16: # Windplane
+                title: 'Windplane'
+                actuators:
+                  - actuator_type: 'motor'
+                    group_label: 'Motors'
+                    count: 'CA_ROTOR_COUNT'
+                    parameters:
+                      - label: 'Wrench scale mode'
+                        name: CA_WR_SCL_MODE
+                    per_item_parameters:
+                        extra:
+                          - name: 'CA_WP_R${i}_MX'
+                            label: 'Mx eff'
+                          - name: 'CA_WP_R${i}_MY'
+                            label: 'My eff'
+                          - name: 'CA_WP_R${i}_MZ'
+                            label: 'Mz eff'
+                          - name: 'CA_WP_R${i}_FX'
+                            label: 'Fx eff'
+                          - name: 'CA_WP_R${i}_FY'
+                            label: 'Fy eff'
+                          - name: 'CA_WP_R${i}_FZ'
+                            label: 'Fz eff'
+                  - actuator_type: 'servo'
+                    group_label: 'Servos'
+                    count: 'CA_SV_CS_COUNT'
+                    per_item_parameters:
+                        extra:
+                          - name: 'CA_WP_SV${i}_MX'
+                            label: 'Mx eff'
+                          - name: 'CA_WP_SV${i}_MY'
+                            label: 'My eff'
+                          - name: 'CA_WP_SV${i}_MZ'
+                            label: 'Mz eff'
+                          - name: 'CA_WP_SV${i}_FX'
+                            label: 'Fx eff'
+                          - name: 'CA_WP_SV${i}_FY'
+                            label: 'Fy eff'
+                          - name: 'CA_WP_SV${i}_FZ'
+                            label: 'Fz eff'

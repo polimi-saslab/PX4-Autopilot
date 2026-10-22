@@ -127,6 +127,7 @@ ControlAllocator::parameters_updated()
 	}
 
 	for (int i = 0; i < _num_control_allocation; ++i) {
+		_control_allocation[i]->setMetricAllocation(_param_ca_metric_alloc.get());
 		_control_allocation[i]->updateParameters();
 	}
 
@@ -271,6 +272,10 @@ ControlAllocator::update_effectiveness_source()
 
 		case EffectivenessSource::SPACECRAFT_3D:
 			tmp = new ActuatorEffectivenessSpacecraft(this);
+			break;
+
+		case EffectivenessSource::WINDPLANE:
+			tmp = new ActuatorEffectivenessWindplane(this);
 			break;
 
 		default:
@@ -598,6 +603,15 @@ ControlAllocator::publish_control_allocator_status(int matrix_index)
 {
 	control_allocator_status_s control_allocator_status{};
 	control_allocator_status.timestamp = hrt_absolute_time();
+
+	matrix::Vector<float, NUM_AXES> control_limit_min;
+	matrix::Vector<float, NUM_AXES> control_limit_max;
+	_control_allocation[matrix_index]->getControlLimits(control_limit_min, control_limit_max);
+
+	for (int i = 0; i < NUM_AXES; i++) {
+		control_allocator_status.control_limit_min[i] = control_limit_min(i);
+		control_allocator_status.control_limit_max[i] = control_limit_max(i);
+	}
 
 	// TODO: disabled motors (?)
 

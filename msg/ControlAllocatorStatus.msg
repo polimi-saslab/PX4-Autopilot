@@ -8,6 +8,9 @@ bool thrust_setpoint_achieved           # Boolean indicating whether the 3D thru
 float32[3] unallocated_thrust           # Unallocated thrust. Equal to 0 if the setpoint was achieved.
                                         # Computed as: unallocated_thrust = thrust_setpoint - allocated_thrust
 
+float32[6] control_limit_min            # Per-axis lower wrench limits for the current effectiveness matrix and actuator bounds.
+float32[6] control_limit_max            # Per-axis upper wrench limits. Limits are independent per axis and may not be jointly achievable.
+
 int8 ACTUATOR_SATURATION_OK        =  0 # The actuator is not saturated
 int8 ACTUATOR_SATURATION_UPPER_DYN =  1 # The actuator is saturated (with a value <= the desired value) because it cannot increase its value faster
 int8 ACTUATOR_SATURATION_UPPER     =  2 # The actuator is saturated (with a value <= the desired value) because it has reached its maximum value
