@@ -197,6 +197,13 @@ MulticopterRateControl::Run()
 			control_allocator_status_s control_allocator_status;
 
 			if (_control_allocator_status_sub.update(&control_allocator_status)) {
+				for (int i = 0; i < 6; i++) {
+					_allocator_control_limit_min(i) = control_allocator_status.control_limit_min[i];
+					_allocator_control_limit_max(i) = control_allocator_status.control_limit_max[i];
+				}
+
+				_allocator_control_limits_valid = true;
+
 				Vector<bool, 3> saturation_positive;
 				Vector<bool, 3> saturation_negative;
 
@@ -256,13 +263,31 @@ MulticopterRateControl::Run()
 			}
 
 			if (_param_ca_metric_alloc.get()) {
-				vehicle_torque_setpoint.xyz[0] *= _param_mc_roll_tq_scl.get();
-				vehicle_torque_setpoint.xyz[1] *= _param_mc_pitch_tq_scl.get();
-				vehicle_torque_setpoint.xyz[2] *= _param_mc_yaw_tq_scl.get();
+				float scale[5] {_param_ca_r_tq_scl.get(), _param_ca_p_tq_scl.get(), _param_ca_y_tq_scl.get(),
+					_param_ca_thr_z_scl.get(), _param_ca_thr_xy_scl.get()};
+				const WrenchScaleMode scale_mode = static_cast<WrenchScaleMode>(_param_ca_wr_scl_mode.get());
 
-				vehicle_thrust_setpoint.xyz[0] *= _param_mc_thr_xy_scl.get();
-				vehicle_thrust_setpoint.xyz[1] *= _param_mc_thr_xy_scl.get();
-				vehicle_thrust_setpoint.xyz[2] *= _param_mc_thr_z_scl.get();
+				if (scale_mode == WrenchScaleMode::DISABLED) {
+					for (float &gain : scale) { gain = 1.f; }
+
+				} else if (scale_mode == WrenchScaleMode::AUTOMATIC && _allocator_control_limits_valid) {
+					for (int axis = 0; axis < 3; axis++) {
+						scale[axis] = fmaxf(fabsf(_allocator_control_limit_min(axis)), fabsf(_allocator_control_limit_max(axis)));
+					}
+
+					const float thrust_xy_limit = fminf(
+						fmaxf(fabsf(_allocator_control_limit_min(3)), fabsf(_allocator_control_limit_max(3))),
+						fmaxf(fabsf(_allocator_control_limit_min(4)), fabsf(_allocator_control_limit_max(4))));
+					scale[4] = thrust_xy_limit;
+					scale[3] = fmaxf(fabsf(_allocator_control_limit_min(5)), fabsf(_allocator_control_limit_max(5)));
+				}
+
+				vehicle_torque_setpoint.xyz[0] *= scale[0];
+				vehicle_torque_setpoint.xyz[1] *= scale[1];
+				vehicle_torque_setpoint.xyz[2] *= scale[2];
+				vehicle_thrust_setpoint.xyz[0] *= scale[4];
+				vehicle_thrust_setpoint.xyz[1] *= scale[4];
+				vehicle_thrust_setpoint.xyz[2] *= scale[3];
 			}
 
 			vehicle_thrust_setpoint.timestamp_sample = angular_velocity.timestamp_sample;

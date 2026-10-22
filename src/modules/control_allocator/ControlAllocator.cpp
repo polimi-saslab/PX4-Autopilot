@@ -604,6 +604,15 @@ ControlAllocator::publish_control_allocator_status(int matrix_index)
 	control_allocator_status_s control_allocator_status{};
 	control_allocator_status.timestamp = hrt_absolute_time();
 
+	matrix::Vector<float, NUM_AXES> control_limit_min;
+	matrix::Vector<float, NUM_AXES> control_limit_max;
+	_control_allocation[matrix_index]->getControlLimits(control_limit_min, control_limit_max);
+
+	for (int i = 0; i < NUM_AXES; i++) {
+		control_allocator_status.control_limit_min[i] = control_limit_min(i);
+		control_allocator_status.control_limit_max[i] = control_limit_max(i);
+	}
+
 	// TODO: disabled motors (?)
 
 	// Allocated control
