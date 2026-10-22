@@ -44,6 +44,90 @@
 
 using namespace matrix;
 
+TEST(ControlAllocationTest, ControlLimitsMatchActuatorBoxVertices)
+{
+	ControlAllocationPseudoInverse method;
+	Matrix<float, 6, 16> effectiveness;
+	Vector<float, 16> minimum;
+	Vector<float, 16> maximum;
+	Vector<float, 16> trim;
+	Vector<float, 16> linearization_point;
+
+	// Unidirectional motor, reversible motor, and a servo with nonzero trim.
+	minimum(0) = 0.f;
+	minimum(1) = -1.f;
+	minimum(2) = -0.8f;
+	maximum(0) = 1.f;
+	maximum(1) = 1.f;
+	maximum(2) = 0.9f;
+	trim(2) = 0.2f;
+	linearization_point(0) = 0.4f;
+
+	for (int axis = 0; axis < 5; ++axis) {
+		effectiveness(axis, 0) = 2.f * (axis + 1);
+		effectiveness(axis, 1) = -3.f;
+		effectiveness(axis, 2) = (axis % 2 == 0) ? 4.f : -4.f;
+	}
+
+	// Unconfigured columns must not contribute.
+	effectiveness(5, 15) = 100.f;
+	method.setActuatorMin(minimum);
+	method.setActuatorMax(maximum);
+	method.setEffectivenessMatrix(effectiveness, trim, linearization_point, 3, false);
+	Vector<float, 6> lower;
+	Vector<float, 6> upper;
+	method.getControlLimits(lower, upper);
+
+	Vector<float, 6> expected_lower;
+	Vector<float, 6> expected_upper;
+
+	for (int vertex = 0; vertex < 8; ++vertex) {
+		Vector<float, 16> actuator;
+
+		for (int i = 0; i < 3; ++i) {
+			actuator(i) = (vertex & (1 << i)) ? maximum(i) : minimum(i);
+		}
+
+		const Vector<float, 6> wrench = effectiveness * (actuator - trim);
+
+		for (int axis = 0; axis < 6; ++axis) {
+			expected_lower(axis) = vertex == 0 ? wrench(axis) : fminf(expected_lower(axis), wrench(axis));
+			expected_upper(axis) = vertex == 0 ? wrench(axis) : fmaxf(expected_upper(axis), wrench(axis));
+		}
+	}
+
+	for (int axis = 0; axis < 6; ++axis) {
+		EXPECT_NEAR(lower(axis), expected_lower(axis), 1e-5f);
+		EXPECT_NEAR(upper(axis), expected_upper(axis), 1e-5f);
+	}
+}
+
+TEST(ControlAllocationTest, ControlLimitsEmptyAndInvalidRanges)
+{
+	ControlAllocationPseudoInverse method;
+	Vector<float, 6> lower;
+	Vector<float, 6> upper;
+	method.getControlLimits(lower, upper);
+	EXPECT_EQ(lower, (Vector<float, 6>{}));
+	EXPECT_EQ(upper, (Vector<float, 6>{}));
+
+	Matrix<float, 6, 16> effectiveness;
+	effectiveness(0, 0) = -5.f;
+	effectiveness(0, 1) = 3.f;
+	Vector<float, 16> minimum;
+	Vector<float, 16> maximum;
+	minimum(0) = 1.f;
+	maximum(0) = -1.f; // Invalid: actuator held at trim.
+	minimum(1) = 0.5f;
+	maximum(1) = 0.5f; // Fixed actuator.
+	method.setActuatorMin(minimum);
+	method.setActuatorMax(maximum);
+	method.setEffectivenessMatrix(effectiveness, {}, {}, 2, false);
+	method.getControlLimits(lower, upper);
+	EXPECT_FLOAT_EQ(lower(0), 1.5f);
+	EXPECT_FLOAT_EQ(upper(0), 1.5f);
+}
+
 TEST(ControlAllocationTest, AllZeroCase)
 {
 	ControlAllocationPseudoInverse method;
