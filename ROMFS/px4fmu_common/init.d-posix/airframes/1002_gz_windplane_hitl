@@ -8,7 +8,7 @@
 # . ${R}etc/init.d/rc.vtol_defaults
 . ${R}etc/init.d-posix/airframes/1001_gz_windplane
 
-PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
-PX4_GZ_WORLD=${PX4_GZ_WORLD:=hitl}
+# PX4_SIMULATOR=${PX4_SIMULATOR:=gz}
+PX4_GZ_WORLD=hitl
 
-PX4_GZ_MODEL_NAME=${PX4_GZ_MODEL_NAME:=windplane_hitl}
+PX4_GZ_MODEL_NAME=windplane_hitl
