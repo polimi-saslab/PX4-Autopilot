@@ -591,6 +591,11 @@ ControlAllocator::update_effectiveness_matrix_if_needed(EffectivenessUpdateReaso
 			int total_num_actuators = config.num_actuators_matrix[i];
 			_control_allocation[i]->setEffectivenessMatrix(config.effectiveness_matrices[i], config.trim[i],
 					config.linearization_point[i], total_num_actuators, reason == EffectivenessUpdateReason::CONFIGURATION_UPDATE);
+
+			// Apply linearization bias
+			if (config.wrench_lin_bias_set[i]) {
+				_control_allocation[i]->addWrenchLinearizationBias(config.wrench_lin_bias[i]);
+			}
 		}
 
 		trims.timestamp = hrt_absolute_time();

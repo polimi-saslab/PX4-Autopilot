@@ -117,6 +117,12 @@ private:
 
 	DEFINE_PARAMETERS(
 		(ParamInt<px4::params::CA_ROTOR_COUNT>) _param_ca_rotor_count,
-		(ParamInt<px4::params::CA_SV_CS_COUNT>) _param_ca_sv_cs_count
+		(ParamInt<px4::params::CA_SV_CS_COUNT>) _param_ca_sv_cs_count,
+		(ParamFloat<px4::params::CA_WP_WLB_MX>) _param_wlb_mx,
+		(ParamFloat<px4::params::CA_WP_WLB_MY>) _param_wlb_my,
+		(ParamFloat<px4::params::CA_WP_WLB_MZ>) _param_wlb_mz,
+		(ParamFloat<px4::params::CA_WP_WLB_FX>) _param_wlb_fx,
+		(ParamFloat<px4::params::CA_WP_WLB_FY>) _param_wlb_fy,
+		(ParamFloat<px4::params::CA_WP_WLB_FZ>) _param_wlb_fz
 	)
 };

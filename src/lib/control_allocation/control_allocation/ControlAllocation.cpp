@@ -63,6 +63,11 @@ ControlAllocation::setEffectivenessMatrix(
 	_control_trim = _effectiveness * linearization_point_clipped;
 }
 
+void ControlAllocation::addWrenchLinearizationBias(const matrix::Vector<float, NUM_AXES> &wrench_bias)
+{
+	_control_trim += wrench_bias;
+}
+
 void
 ControlAllocation::getControlLimits(matrix::Vector<float, NUM_AXES> &minimum,
 				    matrix::Vector<float, NUM_AXES> &maximum) const

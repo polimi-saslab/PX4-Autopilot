@@ -117,10 +117,14 @@ public:
 
 		ActuatorVector linearization_point[MAX_NUM_MATRICES];
 
+		/// @brief Wrench linearization bias: wrench ~= effectiveness * actuator + bias.
+		matrix::Vector<float, NUM_AXES> wrench_lin_bias[MAX_NUM_MATRICES];
+
 		int selected_matrix;
 
 		uint8_t matrix_selection_indexes[NUM_ACTUATORS * MAX_NUM_MATRICES];
 		int num_actuators[(int)ActuatorType::COUNT];
+		bool wrench_lin_bias_set[MAX_NUM_MATRICES] {};
 	};
 
 	/**

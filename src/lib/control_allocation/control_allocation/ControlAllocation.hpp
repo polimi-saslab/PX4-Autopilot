@@ -125,6 +125,13 @@ public:
 					    bool update_normalization_scale);
 
 	/**
+	 * @brief Add the wrench linearization bias from the actuator model.
+	 *
+	 * @param wrench_bias Wrench linearization bias vector.
+	 */
+	void addWrenchLinearizationBias(const matrix::Vector<float, NUM_AXES> &wrench_bias);
+
+	/**
 	 * Get the allocated actuator vector
 	 *
 	 * @return Actuator vector
@@ -151,7 +158,7 @@ public:
 	 * @return Control vector
 	 */
 	matrix::Vector<float, NUM_AXES> getAllocatedControl() const
-	{ return (_effectiveness * (_actuator_sp - _actuator_trim)).emult(_control_allocation_scale); }
+	{ return (_effectiveness * (_actuator_sp - _actuator_trim)).emult(_control_allocation_scale) + _control_trim; }
 
 	/**
 	 * Get the control effectiveness matrix
@@ -259,7 +266,7 @@ protected:
 	ActuatorVector _prev_actuator_sp;  	///< Previous actuator setpoint
 	ActuatorVector _actuator_sp;  	///< Actuator setpoint
 	matrix::Vector<float, NUM_AXES> _control_sp;   		///< Control setpoint
-	matrix::Vector<float, NUM_AXES> _control_trim; 		///< Control at trim actuator values
+	matrix::Vector<float, NUM_AXES> _control_trim; 		///< Control at trim actuator values + Wrench bias
 	int _num_actuators{0};
 	bool _normalize_rpy{false};				///< if true, normalize roll, pitch and yaw columns
 	bool _had_actuator_failure{false};

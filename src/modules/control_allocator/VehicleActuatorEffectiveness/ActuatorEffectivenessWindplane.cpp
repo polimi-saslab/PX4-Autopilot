@@ -91,6 +91,14 @@ bool ActuatorEffectivenessWindplane::getEffectivenessMatrix(Configuration &confi
 	}
 
 	configuration.selected_matrix = 0;
+	configuration.wrench_lin_bias[0](ControlAxis::ROLL) = _param_wlb_mx.get();
+	configuration.wrench_lin_bias[0](ControlAxis::PITCH) = _param_wlb_my.get();
+	configuration.wrench_lin_bias[0](ControlAxis::YAW) = _param_wlb_mz.get();
+	configuration.wrench_lin_bias[0](ControlAxis::THRUST_X) = _param_wlb_fx.get();
+	configuration.wrench_lin_bias[0](ControlAxis::THRUST_Y) = _param_wlb_fy.get();
+	configuration.wrench_lin_bias[0](ControlAxis::THRUST_Z) = _param_wlb_fz.get();
+
+	configuration.wrench_lin_bias_set[0] = true;
 
 	// rotors
 	for (int i = 0; i < _wrench.num_rotors; ++i) {

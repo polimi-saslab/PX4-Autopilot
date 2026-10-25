@@ -180,6 +180,60 @@ parameters:
             min: -100
             max: 100
             default: 0.0
+        CA_WP_WLB_MX:
+            description:
+                short: Windplane wrench linearization bias moment X
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_WLB_MY:
+            description:
+                short: Windplane wrench linearization bias moment Y
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_WLB_MZ:
+            description:
+                short: Windplane wrench linearization bias moment Z
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_WLB_FX:
+            description:
+                short: Windplane wrench linearization bias force X
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_WLB_FY:
+            description:
+                short: Windplane wrench linearization bias force Y
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
+        CA_WP_WLB_FZ:
+            description:
+                short: Windplane wrench linearization bias force Z
+            type: float
+            decimal: 3
+            increment: 0.01
+            min: -100
+            max: 100
+            default: 0.0
         CA_WR_SCL_MODE:
             description:
                 short: Wrench scale mode
@@ -1461,6 +1515,18 @@ mixer:
                     parameters:
                       - label: 'Wrench scale mode'
                         name: CA_WR_SCL_MODE
+                      - label: 'Wrench linearization bias Mx'
+                        name: CA_WP_WLB_MX
+                      - label: 'Wrench linearization bias My'
+                        name: CA_WP_WLB_MY
+                      - label: 'Wrench linearization bias Mz'
+                        name: CA_WP_WLB_MZ
+                      - label: 'Wrench linearization bias Fx'
+                        name: CA_WP_WLB_FX
+                      - label: 'Wrench linearization bias Fy'
+                        name: CA_WP_WLB_FY
+                      - label: 'Wrench linearization bias Fz'
+                        name: CA_WP_WLB_FZ
                     per_item_parameters:
                         extra:
                           - name: 'CA_WP_R${i}_MX'
