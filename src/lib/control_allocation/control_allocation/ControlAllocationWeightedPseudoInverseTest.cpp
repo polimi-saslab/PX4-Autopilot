@@ -61,3 +61,28 @@ TEST(ControlAllocationWeightedPseudoInverseTest, UnitWeightsMatchPseudoInverse)
 	EXPECT_NEAR(weighted_pseudo_inverse.getActuatorSetpoint()(0), pseudo_inverse.getActuatorSetpoint()(0), 1e-5f);
 	EXPECT_NEAR(weighted_pseudo_inverse.getActuatorSetpoint()(1), pseudo_inverse.getActuatorSetpoint()(1), 1e-5f);
 }
+
+TEST(ControlAllocationWeightedPseudoInverseTest, IllConditionedAxisIsDropped)
+{
+	ControlAllocationWeightedPseudoInverse allocator;
+	Matrix<float, 6, 16> effectiveness;
+	effectiveness(0, 0) = 1.f;
+	effectiveness(1, 1) = 1e-4f;
+
+	Vector<float, 16> weights;
+	weights.setAll(1.f);
+	allocator.setActuatorWeights(weights);
+	allocator.setMetricAllocation(true);
+	allocator.setEffectivenessMatrix(effectiveness, {}, {}, 2, false);
+
+	Vector<float, 6> control_setpoint;
+	control_setpoint(0) = 1.f;
+	control_setpoint(1) = 1.f;
+	allocator.setControlSetpoint(control_setpoint);
+	allocator.allocate();
+
+	// The second Gram-matrix diagonal is 1e-8, below the rank threshold
+	// (6 * FLT_EPSILON * 1). PX4 therefore treats this axis as unobservable.
+	EXPECT_NEAR(allocator.getActuatorSetpoint()(0), 1.f, 1e-5f);
+	EXPECT_NEAR(allocator.getActuatorSetpoint()(1), 0.f, 1e-5f);
+}

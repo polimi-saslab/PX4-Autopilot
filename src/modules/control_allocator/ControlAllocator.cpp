@@ -73,6 +73,12 @@ ControlAllocator::ControlAllocator() :
 		_param_handles.slew_rate_servos[i] = param_find(buffer);
 	}
 
+	for (int i = 0; i < NUM_ACTUATORS; ++i) {
+		char buffer[17];
+		snprintf(buffer, sizeof(buffer), "CA_WGT_ACT%u", i);
+		_param_handles.actuator_weights[i] = param_find(buffer);
+	}
+
 	parameters_updated();
 }
 
@@ -117,6 +123,11 @@ ControlAllocator::parameters_updated()
 		_has_slew_rate |= _params.slew_rate_servos[i] > FLT_EPSILON;
 	}
 
+	for (int i = 0; i < NUM_ACTUATORS; ++i) {
+		_params.actuator_weights[i] = 1.f;
+		param_get(_param_handles.actuator_weights[i], &_params.actuator_weights[i]);
+	}
+
 	// Allocation method & effectiveness source
 	// Do this first: in case a new method is loaded, it will be configured below
 	bool updated = update_effectiveness_source();
@@ -128,6 +139,14 @@ ControlAllocator::parameters_updated()
 
 	for (int i = 0; i < _num_control_allocation; ++i) {
 		_control_allocation[i]->setMetricAllocation(_param_ca_metric_alloc.get());
+
+		ActuatorVector actuator_weights;
+
+		for (int actuator_idx = 0; actuator_idx < NUM_ACTUATORS; ++actuator_idx) {
+			actuator_weights(actuator_idx) = _params.actuator_weights[actuator_idx];
+		}
+
+		_control_allocation[i]->setActuatorWeights(actuator_weights);
 		_control_allocation[i]->updateParameters();
 	}
 
@@ -177,6 +196,10 @@ ControlAllocator::update_allocation_method(bool force)
 			switch (method) {
 			case AllocationMethod::PSEUDO_INVERSE:
 				_control_allocation[i] = new ControlAllocationPseudoInverse();
+				break;
+
+			case AllocationMethod::WEIGHTED_PSEUDO_INVERSE:
+				_control_allocation[i] = new ControlAllocationWeightedPseudoInverse();
 				break;
 
 			case AllocationMethod::SEQUENTIAL_DESATURATION:
@@ -821,6 +844,10 @@ int ControlAllocator::print_status()
 
 	case AllocationMethod::PSEUDO_INVERSE:
 		PX4_INFO("Method: Pseudo-inverse");
+		break;
+
+	case AllocationMethod::WEIGHTED_PSEUDO_INVERSE:
+		PX4_INFO("Method: Weighted pseudo-inverse");
 		break;
 
 	case AllocationMethod::SEQUENTIAL_DESATURATION:

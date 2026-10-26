@@ -10,7 +10,7 @@ public:
 	~ControlAllocationWeightedPseudoInverse() override = default;
 
 	/** Set positive actuator effort costs. Invalid/non-positive entries use unit cost. */
-	void setActuatorWeights(const ActuatorVector &weights);
+	void setActuatorWeights(const ActuatorVector &weights) override;
 
 protected:
 	void updatePseudoInverse() override;
