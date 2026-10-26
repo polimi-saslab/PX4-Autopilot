@@ -1547,6 +1547,8 @@ mixer:
                         name: CA_WP_WLB_FZ
                     per_item_parameters:
                         extra:
+                          - name: 'CA_WGT_ACT${i}'
+                            label: 'Effort'
                           - name: 'CA_WP_R${i}_MX'
                             label: 'Mx eff'
                           - name: 'CA_WP_R${i}_MY'
@@ -1564,6 +1566,9 @@ mixer:
                     count: 'CA_SV_CS_COUNT'
                     per_item_parameters:
                         extra:
+                          - name: 'CA_WGT_ACT${i}'
+                            label: 'Effort'
+                            index_offset: 4
                           - name: 'CA_WP_SV${i}_MX'
                             label: 'Mx eff'
                           - name: 'CA_WP_SV${i}_MY'
