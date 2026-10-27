@@ -10,9 +10,9 @@ parameters:
       definitions:
         CA_WGT_ACT${i}:
             description:
-                short: Effort weight for effectiveness column ${i}
+                short: Effort weight for actuator ${i}
                 long: |
-                  Relative actuator effort cost used by the weighted pseudo-inverse method. Larger values discourage
+                  Relative actuator weight used by the weighted pseudo-inverse method. Larger values discourage
                   using the corresponding actuator. The index is the actuator column in the effectiveness matrix.
             type: float
             decimal: 2
@@ -1548,7 +1548,7 @@ mixer:
                     per_item_parameters:
                         extra:
                           - name: 'CA_WGT_ACT${i}'
-                            label: 'Effort'
+                            label: 'Weight'
                           - name: 'CA_WP_R${i}_MX'
                             label: 'Mx eff'
                           - name: 'CA_WP_R${i}_MY'
@@ -1567,7 +1567,7 @@ mixer:
                     per_item_parameters:
                         extra:
                           - name: 'CA_WGT_ACT${i}'
-                            label: 'Effort'
+                            label: 'Weight'
                             index_offset: 4
                           - name: 'CA_WP_SV${i}_MX'
                             label: 'Mx eff'

@@ -864,6 +864,12 @@ int ControlAllocator::print_status()
 		PX4_INFO("Effectiveness Source: %s", _actuator_effectiveness->name());
 	}
 
+	AllocationMethod desired_methods[ActuatorEffectiveness::MAX_NUM_MATRICES] {};
+
+	if (_actuator_effectiveness != nullptr) {
+		_actuator_effectiveness->getDesiredAllocationMethod(desired_methods);
+	}
+
 	// Print current effectiveness matrix
 	for (int i = 0; i < _num_control_allocation; ++i) {
 		const ActuatorEffectiveness::EffectivenessMatrix &effectiveness = _control_allocation[i]->getEffectivenessMatrix();
@@ -874,6 +880,16 @@ int ControlAllocator::print_status()
 
 		PX4_INFO("  Effectiveness.T =");
 		effectiveness.T().print();
+
+		const AllocationMethod allocation_method_out = (_allocation_method_id == AllocationMethod::AUTO) ? desired_methods[i] :
+											 _allocation_method_id;
+
+		if (allocation_method_out == AllocationMethod::WEIGHTED_PSEUDO_INVERSE
+		    || allocation_method_out == AllocationMethod::PSEUDO_INVERSE) {
+			PX4_INFO("  Allocation matrix.T =");
+			static_cast<ControlAllocationPseudoInverse *>(_control_allocation[i])->getAllocationMatrix().T().print();
+		}
+
 		PX4_INFO("  minimum =");
 		_control_allocation[i]->getActuatorMin().T().print();
 		PX4_INFO("  maximum =");
