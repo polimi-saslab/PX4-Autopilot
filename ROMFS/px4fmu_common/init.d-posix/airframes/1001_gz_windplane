@@ -61,6 +61,7 @@ param set-default CA_WP_R0_FZ -21.377
 param set-default CA_WP_R0_MX 17.420
 param set-default CA_WP_R0_MY -2.916
 param set-default CA_WP_R0_MZ -2.212
+param set-default CA_WGT_ACT0 1.0
 
 # param set-default CA_WP_R1_FX -3.150
 # param set-default CA_WP_R1_FY 1.204
@@ -68,6 +69,7 @@ param set-default CA_WP_R1_FZ -25.128
 param set-default CA_WP_R1_MX 6.557
 param set-default CA_WP_R1_MY 2.680
 param set-default CA_WP_R1_MZ 0.023
+param set-default CA_WGT_ACT1 1.0
 
 # param set-default CA_WP_R2_FX -3.150
 # param set-default CA_WP_R2_FY -1.204
@@ -75,6 +77,7 @@ param set-default CA_WP_R2_FZ -25.128
 param set-default CA_WP_R2_MX -6.557
 param set-default CA_WP_R2_MY 2.680
 param set-default CA_WP_R2_MZ -0.023
+param set-default CA_WGT_ACT2 1.0
 
 # param set-default CA_WP_R3_FX -2.940
 # param set-default CA_WP_R3_FY -0.359
@@ -82,21 +85,23 @@ param set-default CA_WP_R3_FZ -21.377
 param set-default CA_WP_R3_MX -17.420
 param set-default CA_WP_R3_MY -2.916
 param set-default CA_WP_R3_MZ 2.212
+param set-default CA_WGT_ACT3 1.0
 
 # param set-default CA_WP_SV0_FX -0.900
 # param set-default CA_WP_SV0_FY 0.165
 param set-default CA_WP_SV0_FZ 0.000
 param set-default CA_WP_SV0_MX 0.000
 param set-default CA_WP_SV0_MY 0.000
-param set-default CA_WP_SV0_MZ -0.8 # magic number
+param set-default CA_WP_SV0_MZ -0.544
+param set-default CA_WGT_ACT4 0.3
 
 # param set-default CA_WP_SV1_FX -0.900
 # param set-default CA_WP_SV1_FY -0.165
 param set-default CA_WP_SV1_FZ 0.000
 param set-default CA_WP_SV1_MX 0.000
 param set-default CA_WP_SV1_MY 0.000
-param set-default CA_WP_SV1_MZ 0.8 # magic number
-
+param set-default CA_WP_SV1_MZ 0.544
+param set-default CA_WGT_ACT5 0.3
 
 # Wrench Linearization bias b = w0 - T*u0
 param set-default CA_WP_WLB_MX 0.000

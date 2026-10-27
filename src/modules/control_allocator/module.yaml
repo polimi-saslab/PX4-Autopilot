@@ -1,10 +1,27 @@
 __max_num_mc_motors: &max_num_mc_motors 12
 __max_num_servos: &max_num_servos 8
 __max_num_tilts: &max_num_tilts 4
+__num_control_allocation_actuators: &num_control_allocation_actuators 16
 
 module_name: Control Allocation
 
 parameters:
+    - group: Allocation
+      definitions:
+        CA_WGT_ACT${i}:
+            description:
+                short: Effort weight for actuator ${i}
+                long: |
+                  Relative actuator weight used by the weighted pseudo-inverse method. Larger values discourage
+                  using the corresponding actuator. The index is the actuator column in the effectiveness matrix.
+            type: float
+            decimal: 2
+            increment: 0.1
+            num_instances: *num_control_allocation_actuators
+            min: 0.001
+            max: 1000
+            default: 1.0
+
     - group: Geometry
       definitions:
         CA_AIRFRAME:
@@ -47,6 +64,7 @@ parameters:
                 0: Pseudo-inverse with output clipping
                 1: Pseudo-inverse with sequential desaturation technique
                 2: Automatic
+                3: Weighted pseudo-inverse with output clipping
             default: 2
 
         CA_METRIC_ALLOC:
@@ -1529,6 +1547,8 @@ mixer:
                         name: CA_WP_WLB_FZ
                     per_item_parameters:
                         extra:
+                          - name: 'CA_WGT_ACT${i}'
+                            label: 'Weight'
                           - name: 'CA_WP_R${i}_MX'
                             label: 'Mx eff'
                           - name: 'CA_WP_R${i}_MY'
@@ -1546,6 +1566,9 @@ mixer:
                     count: 'CA_SV_CS_COUNT'
                     per_item_parameters:
                         extra:
+                          - name: 'CA_WGT_ACT${i}'
+                            label: 'Weight'
+                            index_offset: 4
                           - name: 'CA_WP_SV${i}_MX'
                             label: 'Mx eff'
                           - name: 'CA_WP_SV${i}_MY'

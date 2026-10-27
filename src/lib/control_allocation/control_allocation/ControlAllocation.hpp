@@ -107,6 +107,13 @@ public:
 	virtual void setMetricAllocation(bool metric_allocation) {}
 
 	/**
+	 * @brief Set actuator weight coefficients
+	 *
+	 * @param weights
+	 */
+	virtual void setActuatorWeights(const ActuatorVector &weights) {}
+
+	/**
 	 * Set actuator failure flag
 	 * This prevents a change of the scaling in the matrix normalization step
 	 * in case of a motor failure.

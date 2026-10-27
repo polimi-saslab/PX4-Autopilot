@@ -59,6 +59,7 @@
 #include <ControlAllocation.hpp>
 #include <ControlAllocationPseudoInverse.hpp>
 #include <ControlAllocationSequentialDesaturation.hpp>
+#include <ControlAllocationWeightedPseudoInverse.hpp>
 
 #include <lib/matrix/matrix/math.hpp>
 #include <lib/perf/perf_counter.h>
@@ -117,11 +118,13 @@ private:
 	struct ParamHandles {
 		param_t slew_rate_motors[MAX_NUM_MOTORS];
 		param_t slew_rate_servos[MAX_NUM_SERVOS];
+		param_t actuator_weights[NUM_ACTUATORS];
 	};
 
 	struct Params {
 		float slew_rate_motors[MAX_NUM_MOTORS];
 		float slew_rate_servos[MAX_NUM_SERVOS];
+		float actuator_weights[NUM_ACTUATORS];
 	};
 
 	/**
