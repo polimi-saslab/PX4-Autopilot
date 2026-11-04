@@ -93,7 +93,7 @@ param set-default CA_WP_SV0_FZ 0.000
 param set-default CA_WP_SV0_MX 0.000
 param set-default CA_WP_SV0_MY 0.000
 param set-default CA_WP_SV0_MZ -0.3583
-param set-default CA_WGT_ACT4 0.1
+param set-default CA_WGT_ACT4 0.05
 
 # param set-default CA_WP_SV1_FX 0.0
 # param set-default CA_WP_SV1_FY 0.0
@@ -101,7 +101,7 @@ param set-default CA_WP_SV1_FZ 0.000
 param set-default CA_WP_SV1_MX 0.000
 param set-default CA_WP_SV1_MY 0.000
 param set-default CA_WP_SV1_MZ 0.3583
-param set-default CA_WGT_ACT5 0.1
+param set-default CA_WGT_ACT5 0.05
 
 # Wrench Linearization bias b = w0 - T*u0
 param set-default CA_WP_WLB_MX 0.000
@@ -161,21 +161,21 @@ param set-default SENS_BOARD_ROT 6
 param set-default THR_MDL_FAC 0.0
 param set-default MPC_THR_HOVER 0.69
 
-param set-default MC_ROLLRATE_P  0.8
-param set-default MC_ROLLRATE_I  0.0
-param set-default MC_ROLLRATE_D  0.015
+param set-default MC_ROLLRATE_P  0.4
+param set-default MC_ROLLRATE_I  0.1
+param set-default MC_ROLLRATE_D  0.01
 param set-default MC_PITCHRATE_P 0.58
-param set-default MC_PITCHRATE_I 0.05
-param set-default MC_PITCHRATE_D 0.015
-param set-default MC_YAWRATE_P   1.75
-param set-default MC_YAWRATE_I   0.0
-param set-default MC_YAWRATE_D   0.01
+param set-default MC_PITCHRATE_I 0.1
+param set-default MC_PITCHRATE_D 0.0
+param set-default MC_YAWRATE_P   0.55
+param set-default MC_YAWRATE_I   0.04
+param set-default MC_YAWRATE_D   0.002
 
 param set-default MC_PR_INT_LIM  0.45
 
 param set-default MC_ROLL_P     3.0
-param set-default MC_PITCH_P    3.0
-param set-default MC_YAW_P      0.5
+param set-default MC_PITCH_P    2.0
+param set-default MC_YAW_P      1.0
 param set-default MC_YAW_WEIGHT 0.2
 
 param set-default MC_ROLLRATE_MAX  120
