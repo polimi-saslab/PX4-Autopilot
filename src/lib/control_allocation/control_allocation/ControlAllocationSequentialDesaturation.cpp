@@ -44,6 +44,8 @@
 void
 ControlAllocationSequentialDesaturation::allocate()
 {
+	_desat_actuator_delta.setAll(0.f);
+
 	//Compute new gains if needed
 	updatePseudoInverse();
 
@@ -76,12 +78,14 @@ void ControlAllocationSequentialDesaturation::desaturateActuators(
 
 	for (int i = 0; i < _num_actuators; i++) {
 		actuator_sp(i) += gain * desaturation_vector(i);
+		_desat_actuator_delta(i) += gain * desaturation_vector(i);
 	}
 
 	gain = 0.5f * computeDesaturationGain(desaturation_vector, actuator_sp);
 
 	for (int i = 0; i < _num_actuators; i++) {
 		actuator_sp(i) += gain * desaturation_vector(i);
+		_desat_actuator_delta(i) += gain * desaturation_vector(i);
 	}
 }
 
