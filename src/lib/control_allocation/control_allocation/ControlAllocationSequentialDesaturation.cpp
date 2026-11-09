@@ -90,10 +90,13 @@ float ControlAllocationSequentialDesaturation::computeDesaturationGain(const Act
 {
 	float k_min = 0.f;
 	float k_max = 0.f;
+	const float desaturation_vector_scale = _metric_allocation ? computeDesaturationVectorScale(desaturation_vector) : 1.f;
+
+	const float effectiveness_threshold = 0.2f * desaturation_vector_scale;
 
 	for (int i = 0; i < _num_actuators; i++) {
-		// Do not use try to desaturate using an actuator with weak effectiveness to avoid large desaturation gains
-		if (fabsf(desaturation_vector(i)) < 0.2f) {
+		// Avoid large desaturation gains from actuators that are weak relative to this axis.
+		if (fabsf(desaturation_vector(i)) < effectiveness_threshold) {
 			continue;
 		}
 
@@ -116,6 +119,18 @@ float ControlAllocationSequentialDesaturation::computeDesaturationGain(const Act
 
 	// Reduce the saturation as much as possible
 	return k_min + k_max;
+}
+
+float ControlAllocationSequentialDesaturation::computeDesaturationVectorScale(
+		const ActuatorVector &desaturation_vector) const
+{
+	float scale = 0.f;
+
+	for (int i = 0; i < _num_actuators; i++) {
+		scale = fmaxf(scale, fabsf(desaturation_vector(i)));
+	}
+
+	return scale;
 }
 
 void

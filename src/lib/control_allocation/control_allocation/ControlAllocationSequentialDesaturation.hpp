@@ -90,6 +90,13 @@ private:
 	float computeDesaturationGain(const ActuatorVector &desaturation_vector, const ActuatorVector &actuator_sp);
 
 	/**
+	 * Compute the scale for the weak-effectiveness cutoff from the current
+	 * desaturation vector. This keeps the cutoff independent of the units used
+	 * by the effectiveness matrix.
+	 */
+	float computeDesaturationVectorScale(const ActuatorVector &desaturation_vector) const;
+
+	/**
 	 * Mix roll, pitch, yaw, thrust and set the actuator setpoint.
 	 *
 	 * Desaturation behavior: airmode for roll/pitch:
