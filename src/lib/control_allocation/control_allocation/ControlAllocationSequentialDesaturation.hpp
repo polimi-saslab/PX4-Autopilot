@@ -43,11 +43,11 @@
 
 #pragma once
 
-#include "ControlAllocationPseudoInverse.hpp"
+#include "ControlAllocationWeightedPseudoInverse.hpp"
 
 #include <px4_platform_common/module_params.h>
 
-class ControlAllocationSequentialDesaturation: public ControlAllocationPseudoInverse, public ModuleParams
+class ControlAllocationSequentialDesaturation: public ControlAllocationWeightedPseudoInverse, public ModuleParams
 {
 public:
 
