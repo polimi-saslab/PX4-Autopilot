@@ -19,7 +19,7 @@ int8 ACTUATOR_SATURATION_UPPER     =  2 # The actuator is saturated (with a valu
 int8 ACTUATOR_SATURATION_LOWER_DYN = -1 # The actuator is saturated (with a value >= the desired value) because it cannot decrease its value faster
 int8 ACTUATOR_SATURATION_LOWER     = -2 # The actuator is saturated (with a value >= the desired value) because it has reached its minimum value
 
-int8[16] actuator_saturation            # Indicates actuator saturation status.
+int8[18] actuator_saturation            # Indicates actuator saturation status.
                                         # Note 1: actuator saturation does not necessarily imply that the thrust setpoint or the torque setpoint were not achieved.
                                         # Note 2: an actuator with limited dynamics can be indicated as upper-saturated even if it as not reached its maximum value.
 

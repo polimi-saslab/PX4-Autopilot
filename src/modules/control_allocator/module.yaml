@@ -1,7 +1,7 @@
 __max_num_mc_motors: &max_num_mc_motors 12
 __max_num_servos: &max_num_servos 8
 __max_num_tilts: &max_num_tilts 4
-__num_control_allocation_actuators: &num_control_allocation_actuators 16
+__num_control_allocation_actuators: &num_control_allocation_actuators 18
 
 module_name: Control Allocation
 
@@ -144,7 +144,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0
@@ -154,7 +154,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0
@@ -164,7 +164,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0
@@ -174,7 +174,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0
@@ -184,7 +184,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0
@@ -194,7 +194,7 @@ parameters:
             type: float
             decimal: 4
             increment: 0.0001
-            num_instances: *max_num_tilts
+            num_instances: *max_num_servos
             min: -100
             max: 100
             default: 0.0

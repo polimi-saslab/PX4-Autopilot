@@ -59,7 +59,7 @@ public:
 	const char *name() const override { return "Windplane"; }
 
 	static constexpr int NUM_ROTORS_MAX = 12;
-	static constexpr int NUM_SERVOS_MAX = 4;
+	static constexpr int NUM_SERVOS_MAX = 6;
 
 	static constexpr int NUM_ACTUATORS_TOT_MAX = NUM_ROTORS_MAX + NUM_SERVOS_MAX;
 
