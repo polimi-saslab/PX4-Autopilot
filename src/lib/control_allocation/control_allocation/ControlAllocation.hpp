@@ -146,6 +146,12 @@ public:
 	const ActuatorVector &getActuatorSetpoint() const { return _actuator_sp; }
 
 	/**
+	 * @brief Get the net actuator command change applied by sequential desaturation during the latest allocation cycle.
+	 * @return Net actuator command change from the latest allocation cycle
+	 */
+	const ActuatorVector &getDesaturationActuatorDelta() const { return _desat_actuator_delta; }
+
+	/**
 	 * Set the desired control vector
 	 *
 	 * @param Control vector
@@ -272,6 +278,7 @@ protected:
 	ActuatorVector _actuator_slew_rate_limit; 	///< Slew rate limit
 	ActuatorVector _prev_actuator_sp;  	///< Previous actuator setpoint
 	ActuatorVector _actuator_sp;  	///< Actuator setpoint
+	ActuatorVector _desat_actuator_delta; ///< Actuator command change applied by sequential desaturation
 	matrix::Vector<float, NUM_AXES> _control_sp;   		///< Control setpoint
 	matrix::Vector<float, NUM_AXES> _control_trim; 		///< Control at trim actuator values + Wrench bias
 	int _num_actuators{0};

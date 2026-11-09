@@ -21,5 +21,7 @@ int8[18] actuator_saturation            # Indicates actuator saturation status.
                                         # Note 1: actuator saturation does not necessarily imply that the thrust setpoint or the torque setpoint were not achieved.
                                         # Note 2: an actuator with limited dynamics can be indicated as upper-saturated even if it as not reached its maximum value.
 
+float32[16] desat_actuator_delta         # Net actuator command change from sequential desaturation in this allocation cycle. Positive increases, negative decreases.
+
 uint16 handled_motor_failure_mask        # Bitmask of failed motors that were removed from the allocation / effectiveness matrix. Not necessarily identical to the report from FailureDetector
 uint16 motor_stop_mask                   # Bitmaks of motors stopped by failure injection

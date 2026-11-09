@@ -673,6 +673,8 @@ ControlAllocator::publish_control_allocator_status(int matrix_index)
 	const ActuatorVector &actuator_max = _control_allocation[matrix_index]->getActuatorMax();
 
 	for (int i = 0; i < NUM_ACTUATORS; i++) {
+		control_allocator_status.desat_actuator_delta[i] = _control_allocation[matrix_index]->getDesaturationActuatorDelta()(i);
+
 		if (actuator_sp(i) > (actuator_max(i) - FLT_EPSILON)) {
 			control_allocator_status.actuator_saturation[i] = control_allocator_status_s::ACTUATOR_SATURATION_UPPER;
 
