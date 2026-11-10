@@ -38,5 +38,6 @@ px4_add_module(
 		tiltrotor.cpp
 		vtol_type.cpp
 		tailsitter.cpp
+		windplane.cpp
 		standard.cpp
 	)

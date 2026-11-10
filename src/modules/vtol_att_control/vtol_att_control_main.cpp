@@ -47,6 +47,7 @@
  *
  */
 #include "vtol_att_control_main.h"
+#include "windplane.h"
 #include <px4_platform_common/events.h>
 #include <systemlib/mavlink_log.h>
 #include <uORB/Publication.hpp>
@@ -64,8 +65,11 @@ VtolAttitudeControl::VtolAttitudeControl() :
 
 	parameters_update();
 
-	if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TAILSITTER || static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::WINDPLANE) {
+	if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TAILSITTER) {
 		_vtol_type = new Tailsitter(this);
+
+	} else if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::WINDPLANE) {
+		_vtol_type = new Windplane(this);
 
 	} else if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TILTROTOR) {
 		_vtol_type = new Tiltrotor(this);
