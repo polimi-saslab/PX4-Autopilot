@@ -64,7 +64,7 @@ VtolAttitudeControl::VtolAttitudeControl() :
 
 	parameters_update();
 
-	if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TAILSITTER) {
+	if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TAILSITTER || static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::WINDPLANE) {
 		_vtol_type = new Tailsitter(this);
 
 	} else if (static_cast<vtol_type>(_param_vt_type.get()) == vtol_type::TILTROTOR) {
