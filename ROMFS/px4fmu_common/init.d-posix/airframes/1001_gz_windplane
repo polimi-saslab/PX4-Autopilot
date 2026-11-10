@@ -55,61 +55,93 @@ param set-default CA_ROTOR3_PX	-0.15
 param set-default CA_ROTOR3_PY	0.75
 param set-default CA_ROTOR3_PZ	0.00
 
-# param set-default CA_WP_R0_FX 0.0
-# param set-default CA_WP_R0_FY 0.0
-param set-default CA_WP_R0_FZ -22.9251
-param set-default CA_WP_R0_MX 18.8338
-param set-default CA_WP_R0_MY -3.8751
-param set-default CA_WP_R0_MZ 3.5644
+# param set-default CA_WP_R0_FX 1.9748
+# param set-default CA_WP_R0_FY -0.2810
+param set-default CA_WP_R0_FZ -22.9932
+param set-default CA_WP_R0_MX 20.3873
+param set-default CA_WP_R0_MY -4.7944
+param set-default CA_WP_R0_MZ 1.8870
 param set-default CA_WGT_ACT0 1.0
 
-# param set-default CA_WP_R1_FX 0.0
-# param set-default CA_WP_R1_FY 0.0
-param set-default CA_WP_R1_FZ -26.4121
-param set-default CA_WP_R1_MX 5.6316
-param set-default CA_WP_R1_MY 3.0782
-param set-default CA_WP_R1_MZ -1.3874
+# param set-default CA_WP_R1_FX -7.7690
+# param set-default CA_WP_R1_FY 0.2061
+param set-default CA_WP_R1_FZ -33.4864
+param set-default CA_WP_R1_MX 7.3840
+param set-default CA_WP_R1_MY 3.4377
+param set-default CA_WP_R1_MZ -1.4308
 param set-default CA_WGT_ACT1 1.0
 
-# param set-default CA_WP_R2_FX 0.0
-# param set-default CA_WP_R2_FY 0.0
-param set-default CA_WP_R2_FZ -25.8699
-param set-default CA_WP_R2_MX -5.6316
-param set-default CA_WP_R2_MY 3.0782
-param set-default CA_WP_R2_MZ 1.3874
+# param set-default CA_WP_R2_FX -7.7690
+# param set-default CA_WP_R2_FY -0.2061
+param set-default CA_WP_R2_FZ -33.4864
+param set-default CA_WP_R2_MX -7.3840
+param set-default CA_WP_R2_MY 3.4377
+param set-default CA_WP_R2_MZ 1.4308
 param set-default CA_WGT_ACT2 1.0
 
-# param set-default CA_WP_R3_FX 0.0
-# param set-default CA_WP_R3_FY 0.0
-param set-default CA_WP_R3_FZ -22.9251
-param set-default CA_WP_R3_MX -18.8338
-param set-default CA_WP_R3_MY -3.8751
-param set-default CA_WP_R3_MZ -3.5644
+# param set-default CA_WP_R3_FX 1.9748
+# param set-default CA_WP_R3_FY 0.2810
+param set-default CA_WP_R3_FZ -22.9932
+param set-default CA_WP_R3_MX -20.3873
+param set-default CA_WP_R3_MY -4.7944
+param set-default CA_WP_R3_MZ -1.8870
 param set-default CA_WGT_ACT3 1.0
 
-# param set-default CA_WP_SV0_FX 0.0
-# param set-default CA_WP_SV0_FY 0.0
-param set-default CA_WP_SV0_FZ 0.000
-param set-default CA_WP_SV0_MX 0.000
-param set-default CA_WP_SV0_MY 0.000
-param set-default CA_WP_SV0_MZ -0.3583
+# param set-default CA_WP_SV0_FX -0.6178
+# param set-default CA_WP_SV0_FY 0.0615
+param set-default CA_WP_SV0_FZ 0.0000
+param set-default CA_WP_SV0_MX 0.0000
+param set-default CA_WP_SV0_MY 0.0000
+param set-default CA_WP_SV0_MZ -0.3892
 param set-default CA_WGT_ACT4 0.05
 
-# param set-default CA_WP_SV1_FX 0.0
-# param set-default CA_WP_SV1_FY 0.0
-param set-default CA_WP_SV1_FZ 0.000
-param set-default CA_WP_SV1_MX 0.000
-param set-default CA_WP_SV1_MY 0.000
-param set-default CA_WP_SV1_MZ 0.3583
+# param set-default CA_WP_SV1_FX -0.6178
+# param set-default CA_WP_SV1_FY -0.0615
+param set-default CA_WP_SV1_FZ 0.0000
+param set-default CA_WP_SV1_MX 0.0000
+param set-default CA_WP_SV1_MY 0.0000
+param set-default CA_WP_SV1_MZ 0.3892
 param set-default CA_WGT_ACT5 0.05
 
-# Wrench Linearization bias b = w0 - T*u0
-param set-default CA_WP_WLB_MX 0.000
-param set-default CA_WP_WLB_MY -1.2183
-param set-default CA_WP_WLB_MZ 0.000
-# param set-default CA_WP_WLB_FX 1.6169
-# param set-default CA_WP_WLB_FY 0.000
-param set-default CA_WP_WLB_FZ 4.5522
+# param set-default CA_WP_SV2_FX -0.4246
+# param set-default CA_WP_SV2_FY 0.0000
+param set-default CA_WP_SV2_FZ 0.0000
+param set-default CA_WP_SV2_MX 0.0000
+param set-default CA_WP_SV2_MY -0.1161
+# param set-default CA_WP_SV2_MZ -0.2991
+param set-default CA_WGT_ACT6 0.01
+
+# param set-default CA_WP_SV3_FX 0.0000
+# param set-default CA_WP_SV3_FY 0.0108
+param set-default CA_WP_SV3_FZ 0.0000
+param set-default CA_WP_SV3_MX 0.0000
+param set-default CA_WP_SV3_MY 0.0000
+param set-default CA_WP_SV3_MZ 0.0000
+param set-default CA_WGT_ACT7 1.0
+
+# param set-default CA_WP_SV4_FX 0.0000
+# param set-default CA_WP_SV4_FY -0.0108
+param set-default CA_WP_SV4_FZ 0.0000
+param set-default CA_WP_SV4_MX 0.0000
+param set-default CA_WP_SV4_MY 0.0000
+param set-default CA_WP_SV4_MZ 0.0000
+param set-default CA_WGT_ACT8 1.0
+
+# param set-default CA_WP_SV5_FX -0.4246
+# param set-default CA_WP_SV5_FY 0.0000
+param set-default CA_WP_SV5_FZ 0.0000
+param set-default CA_WP_SV5_MX 0.0000
+param set-default CA_WP_SV5_MY -0.1161
+# param set-default CA_WP_SV5_MZ 0.2991
+param set-default CA_WGT_ACT9 0.01
+
+# Wrench Linearization bias w0 = w_trim - B*u_trim
+# param set-default CA_WP_WLB_FX 1.8185
+# param set-default CA_WP_WLB_FY 0.0000
+param set-default CA_WP_WLB_FZ 7.2829
+param set-default CA_WP_WLB_MX 0.0000
+param set-default CA_WP_WLB_MY -0.6861
+param set-default CA_WP_WLB_MZ 0.0000
 
 # Motors sim output params
 param set-default SIM_GZ_EC_FUNC1 101
@@ -128,27 +160,40 @@ param set-default SIM_GZ_EC_MAX3 1500
 param set-default SIM_GZ_EC_MAX4 1500
 
 # Servos (control surfaces) params
-param set-default CA_SV_CS_COUNT 2
+param set-default CA_SV_CS_COUNT 6
 
 param set-default CA_SV_CS0_TRIM	0.00
-param set-default CA_SV_CS0_TRQ_P	-0.5
-param set-default CA_SV_CS0_TRQ_R	0.00
-param set-default CA_SV_CS0_TRQ_Y	-0.5
 param set-default CA_SV_CS0_TYPE	1
-
 param set-default CA_SV_CS1_TRIM	0.00
-param set-default CA_SV_CS1_TRQ_P	-0.5
-param set-default CA_SV_CS1_TRQ_R	0.00
-param set-default CA_SV_CS1_TRQ_Y	0.5
 param set-default CA_SV_CS1_TYPE	1
+param set-default CA_SV_CS2_TRIM	0.00
+param set-default CA_SV_CS2_TYPE	1
+param set-default CA_SV_CS3_TRIM	0.00
+param set-default CA_SV_CS3_TYPE	1
+param set-default CA_SV_CS4_TRIM	0.00
+param set-default CA_SV_CS4_TYPE	1
+param set-default CA_SV_CS5_TRIM	0.00
+param set-default CA_SV_CS5_TYPE	1
 
 # Servos sim output params
 param set-default SIM_GZ_SV_FUNC1	201
 param set-default SIM_GZ_SV_FUNC2	202
+param set-default SIM_GZ_SV_FUNC3	203
+param set-default SIM_GZ_SV_FUNC4	204
+param set-default SIM_GZ_SV_FUNC5	205
+param set-default SIM_GZ_SV_FUNC6	206
 param set-default SIM_GZ_SV_MAX1	1000
 param set-default SIM_GZ_SV_MAX2	1000
+param set-default SIM_GZ_SV_MAX3	1000
+param set-default SIM_GZ_SV_MAX4	1000
+param set-default SIM_GZ_SV_MAX5	1000
+param set-default SIM_GZ_SV_MAX6	1000
 param set-default SIM_GZ_SV_MIN1	0
 param set-default SIM_GZ_SV_MIN2	0
+param set-default SIM_GZ_SV_MIN3	0
+param set-default SIM_GZ_SV_MIN4	0
+param set-default SIM_GZ_SV_MIN5	0
+param set-default SIM_GZ_SV_MIN6	0
 
 # Disable auto disarm
 param set-default COM_DISARM_PRFLT 0
@@ -159,31 +204,31 @@ param set-default SENS_BOARD_ROT 6
 
 # ---- Hover (MC) control
 param set-default THR_MDL_FAC 0.0
-param set-default MPC_THR_HOVER 0.69
+param set-default MPC_THR_HOVER 0.5
 
-param set-default MC_ROLLRATE_P  0.4
-param set-default MC_ROLLRATE_I  0.1
-param set-default MC_ROLLRATE_D  0.01
-param set-default MC_PITCHRATE_P 0.58
-param set-default MC_PITCHRATE_I 0.1
+param set-default MC_ROLLRATE_P  0.8
+param set-default MC_ROLLRATE_I  0.0
+param set-default MC_ROLLRATE_D  0.0
+param set-default MC_PITCHRATE_P 0.35
+param set-default MC_PITCHRATE_I 0.05
 param set-default MC_PITCHRATE_D 0.0
-param set-default MC_YAWRATE_P   0.55
+param set-default MC_YAWRATE_P   0.65
 param set-default MC_YAWRATE_I   0.04
-param set-default MC_YAWRATE_D   0.002
+param set-default MC_YAWRATE_D   0.0
 
-param set-default MC_PR_INT_LIM  0.45
+param set-default MC_PR_INT_LIM  1.0
 
 param set-default MC_ROLL_P     3.0
 param set-default MC_PITCH_P    2.0
 param set-default MC_YAW_P      1.0
 param set-default MC_YAW_WEIGHT 0.2
 
-param set-default MC_ROLLRATE_MAX  120
-param set-default MC_PITCHRATE_MAX 120
-param set-default MC_YAWRATE_MAX   30
-param set-default MPC_MAN_Y_MAX    30
-param set-default MPC_MAN_TILT_MAX 25
-param set-default MPC_TILTMAX_AIR  25
+param set-default MC_ROLLRATE_MAX  160
+param set-default MC_PITCHRATE_MAX 160
+param set-default MC_YAWRATE_MAX   100
+param set-default MPC_MAN_Y_MAX    90
+param set-default MPC_MAN_TILT_MAX 35
+param set-default MPC_TILTMAX_AIR  45
 
 # Outer loops
 param set-default MPC_POS_MODE     0
