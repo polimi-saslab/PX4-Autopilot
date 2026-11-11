@@ -425,6 +425,33 @@ void FixedwingRateControl::Run()
 			_vehicle_torque_setpoint.xyz[2] = -helper;
 		}
 
+		// Scale in the allocator body frame, matching mc_rate_control's torque units.
+		// Keep this subscription separate from the saturation feedback consumers.
+		control_allocator_status_s scaling_status;
+
+		if (_control_allocator_status_sub.update(&scaling_status)) {
+			for (int axis = 0; axis < 3; axis++) {
+				_allocator_torque_scale(axis) = fmaxf(fabsf(scaling_status.control_limit_min[axis]),
+								    fabsf(scaling_status.control_limit_max[axis]));
+			}
+
+			_allocator_control_limits_valid = true;
+		}
+
+		if (_param_ca_metric_alloc.get()) {
+			const int32_t scale_mode = _param_ca_wr_scl_mode.get();
+
+			if (scale_mode != control_allocator_status_s::WRENCH_SCALE_DISABLED) {
+				const Vector3f scale = scale_mode == control_allocator_status_s::WRENCH_SCALE_AUTOMATIC && _allocator_control_limits_valid
+						       ? _allocator_torque_scale
+						       : Vector3f(_param_ca_r_tq_scl.get(), _param_ca_p_tq_scl.get(), _param_ca_y_tq_scl.get());
+
+				for (int axis = 0; axis < 3; axis++) {
+					_vehicle_torque_setpoint.xyz[axis] *= scale(axis);
+				}
+			}
+		}
+
 		/* Only publish if any of the proper modes are enabled */
 		if (_vcontrol_mode.flag_control_rates_enabled ||
 		    _vcontrol_mode.flag_control_attitude_enabled ||

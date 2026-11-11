@@ -108,6 +108,7 @@ private:
 	uORB::Subscription _vehicle_land_detected_sub{ORB_ID(vehicle_land_detected)};
 	uORB::Subscription _vehicle_status_sub{ORB_ID(vehicle_status)};
 	uORB::Subscription _vehicle_rates_sub{ORB_ID(vehicle_angular_velocity)};
+	uORB::Subscription _control_allocator_status_sub{ORB_ID(control_allocator_status)};
 
 	uORB::SubscriptionMultiArray<control_allocator_status_s, 2> _control_allocator_status_subs{ORB_ID::control_allocator_status};
 
@@ -135,6 +136,9 @@ private:
 	float _airspeed_scaling{1.0f};
 
 	bool _landed{true};
+	bool _allocator_control_limits_valid{false};
+
+	matrix::Vector3f _allocator_torque_scale{};
 
 	float _battery_scale{1.0f};
 
@@ -155,6 +159,12 @@ private:
 	int32_t _param_vt_fw_difthr_en{0};
 
 	DEFINE_PARAMETERS(
+		(ParamBool<px4::params::CA_METRIC_ALLOC>) _param_ca_metric_alloc,
+		(ParamInt<px4::params::CA_WR_SCL_MODE>) _param_ca_wr_scl_mode,
+		(ParamFloat<px4::params::CA_ROLL_TQ_SCL>) _param_ca_r_tq_scl,
+		(ParamFloat<px4::params::CA_PITCH_TQ_SCL>) _param_ca_p_tq_scl,
+		(ParamFloat<px4::params::CA_YAW_TQ_SCL>) _param_ca_y_tq_scl,
+
 		(ParamFloat<px4::params::FW_ACRO_X_MAX>) _param_fw_acro_x_max,
 		(ParamFloat<px4::params::FW_ACRO_Y_MAX>) _param_fw_acro_y_max,
 		(ParamFloat<px4::params::FW_ACRO_Z_MAX>) _param_fw_acro_z_max,
