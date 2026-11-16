@@ -139,6 +139,7 @@ private:
 	bool _allocator_control_limits_valid{false};
 
 	matrix::Vector3f _allocator_torque_scale{};
+	matrix::Vector3f _allocator_thrust_scale{};
 
 	float _battery_scale{1.0f};
 
@@ -164,6 +165,8 @@ private:
 		(ParamFloat<px4::params::CA_ROLL_TQ_SCL>) _param_ca_r_tq_scl,
 		(ParamFloat<px4::params::CA_PITCH_TQ_SCL>) _param_ca_p_tq_scl,
 		(ParamFloat<px4::params::CA_YAW_TQ_SCL>) _param_ca_y_tq_scl,
+		(ParamFloat<px4::params::CA_THR_Z_SCL>) _param_ca_thr_z_scl,
+		(ParamFloat<px4::params::CA_THR_XY_SCL>) _param_ca_thr_xy_scl,
 
 		(ParamFloat<px4::params::FW_ACRO_X_MAX>) _param_fw_acro_x_max,
 		(ParamFloat<px4::params::FW_ACRO_Y_MAX>) _param_fw_acro_y_max,

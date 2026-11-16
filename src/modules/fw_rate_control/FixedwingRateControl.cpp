@@ -425,7 +425,7 @@ void FixedwingRateControl::Run()
 			_vehicle_torque_setpoint.xyz[2] = -helper;
 		}
 
-		// Scale in the allocator body frame, matching mc_rate_control's torque units.
+		// Scale in the allocator body frame, matching mc_rate_control's wrench units.
 		// Keep this subscription separate from the saturation feedback consumers.
 		control_allocator_status_s scaling_status;
 
@@ -433,6 +433,8 @@ void FixedwingRateControl::Run()
 			for (int axis = 0; axis < 3; axis++) {
 				_allocator_torque_scale(axis) = fmaxf(fabsf(scaling_status.control_limit_min[axis]),
 								    fabsf(scaling_status.control_limit_max[axis]));
+				_allocator_thrust_scale(axis) = fmaxf(fabsf(scaling_status.control_limit_min[axis + 3]),
+								    fabsf(scaling_status.control_limit_max[axis + 3]));
 			}
 
 			_allocator_control_limits_valid = true;
@@ -449,6 +451,14 @@ void FixedwingRateControl::Run()
 				for (int axis = 0; axis < 3; axis++) {
 					_vehicle_torque_setpoint.xyz[axis] *= scale(axis);
 				}
+
+				// The FW interface keeps thrust on X; tailsitter routing maps it to body -Z.
+				const int thrust_axis = _vehicle_status.is_vtol_tailsitter ? 2 : 0;
+				const float thrust_scale = scale_mode == control_allocator_status_s::WRENCH_SCALE_AUTOMATIC
+							   && _allocator_control_limits_valid
+							   ? _allocator_thrust_scale(thrust_axis)
+							   : (_vehicle_status.is_vtol_tailsitter ? _param_ca_thr_z_scl.get() : _param_ca_thr_xy_scl.get());
+				_vehicle_thrust_setpoint.xyz[0] *= thrust_scale;
 			}
 		}
 

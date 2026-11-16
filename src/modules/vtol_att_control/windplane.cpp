@@ -1,10 +1,38 @@
 #include "windplane.h"
 
+#include <uORB/topics/vehicle_attitude_setpoint.h>
 #include <uORB/topics/vehicle_torque_setpoint.h>
 
 Windplane::Windplane(VtolAttitudeControl *attc) :
 	Tailsitter(attc)
 {
+}
+
+void Windplane::update_transition_state()
+{
+	Tailsitter::update_transition_state();
+	_last_normalized_thr_in_mc = _v_att_sp->thrust_body[2];
+}
+
+void Windplane::update_fw_state()
+{
+	Tailsitter::update_fw_state();
+	_last_normalized_thr_in_fw = _v_att_sp->thrust_body[0];
+}
+
+void Windplane::waiting_on_tecs()
+{
+	_v_att_sp->thrust_body[0] = -_last_normalized_thr_in_mc;
+}
+
+void Windplane::blendThrottleAfterFrontTransition(float scale)
+{
+	_v_att_sp->thrust_body[0] = scale * _v_att_sp->thrust_body[0] + (1.f - scale) * (-_last_normalized_thr_in_mc);
+}
+
+void Windplane::blendThrottleBeginningBackTransition(float scale)
+{
+	_v_att_sp->thrust_body[2] = scale * _v_att_sp->thrust_body[2] + (1.f - scale) * (-_last_normalized_thr_in_fw);
 }
 
 void Windplane::fill_actuator_outputs()
