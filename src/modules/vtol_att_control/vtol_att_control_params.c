@@ -92,6 +92,34 @@ PARAM_DEFINE_FLOAT(VT_F_TRANS_DUR, 5.0f);
 PARAM_DEFINE_FLOAT(VT_B_TRANS_DUR, 10.0f);
 
 /**
+ * Pitch threshold for front transition
+ *
+ * Transition completes pitch is at or below this angle and the airspeed
+ * condition is satisfied.
+ *
+ * @unit deg
+ * @min -90
+ * @max 0
+ * @decimal 1
+ * @group VTOL Attitude Control
+ */
+PARAM_DEFINE_FLOAT(VT_F_TR_PITCH, -60.0f);
+
+/**
+ * Pitch threshold for back transition
+ *
+ * Transition completes when pitch is at or above this angle, or when
+ * VT_B_TRANS_DUR expires.
+ *
+ * @unit deg
+ * @min -90
+ * @max 0
+ * @decimal 1
+ * @group VTOL Attitude Control
+ */
+PARAM_DEFINE_FLOAT(VT_B_TR_PITCH, -15.0f);
+
+/**
  * Target throttle value for the transition to fixed-wing flight.
  *
  * @min 0.0

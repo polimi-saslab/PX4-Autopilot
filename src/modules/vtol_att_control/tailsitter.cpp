@@ -93,7 +93,7 @@ void Tailsitter::update_vtol_state()
 			const float pitch = Eulerf(Quatf(_v_att->q)).theta();
 
 			// check if we have reached pitch angle to switch to MC mode
-			if (pitch >= PITCH_THRESHOLD_AUTO_TRANSITION_TO_MC || _time_since_trans_start > _param_vt_b_trans_dur.get()) {
+			if (pitch >= math::radians(_param_vt_b_tr_pitch.get()) || _time_since_trans_start > _param_vt_b_trans_dur.get()) {
 				_vtol_mode = vtol_mode::MC_MODE;
 			}
 
@@ -341,7 +341,7 @@ bool Tailsitter::isFrontTransitionCompletedBase()
 	bool transition_to_fw = false;
 	const float pitch = Eulerf(Quatf(_v_att->q)).theta();
 
-	if (pitch <= PITCH_THRESHOLD_AUTO_TRANSITION_TO_FW) {
+	if (pitch <= math::radians(_param_vt_f_tr_pitch.get())) {
 		if (airspeed_triggers_transition) {
 			transition_to_fw = _attc->get_calibrated_airspeed() >= _param_vt_arsp_trans.get() ;
 

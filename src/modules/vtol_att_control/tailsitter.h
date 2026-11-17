@@ -48,12 +48,6 @@
 #include <drivers/drv_hrt.h>
 #include <matrix/matrix/math.hpp>
 
-// [rad] Pitch threshold required for completing transition to fixed-wing in automatic transitions
-static constexpr float PITCH_THRESHOLD_AUTO_TRANSITION_TO_FW = -1.05f; // -60°
-
-// [rad] Pitch threshold required for completing transition to hover in automatic transitions
-static constexpr float PITCH_THRESHOLD_AUTO_TRANSITION_TO_MC = -0.26f; // -15°
-
 // [s] Thrust blending duration from fixed-wing to back transition throttle
 static constexpr float B_TRANS_THRUST_BLENDING_DURATION = 0.5f;
 
@@ -93,7 +87,9 @@ private:
 	bool isFrontTransitionCompletedBase() override;
 
 	DEFINE_PARAMETERS_CUSTOM_PARENT(VtolType,
-					(ParamFloat<px4::params::FW_PSP_OFF>) _param_fw_psp_off
+					(ParamFloat<px4::params::FW_PSP_OFF>) _param_fw_psp_off,
+					(ParamFloat<px4::params::VT_F_TR_PITCH>) _param_vt_f_tr_pitch,
+					(ParamFloat<px4::params::VT_B_TR_PITCH>) _param_vt_b_tr_pitch
 				       )
 
 
