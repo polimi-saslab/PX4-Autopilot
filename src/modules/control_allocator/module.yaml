@@ -78,6 +78,34 @@ parameters:
 
 
         # Windplane effectiveness matrix param
+        CA_WP_TAIL_LOCK:
+            description:
+                short: Lock Windplane tail servos in hover
+                long: |
+                  Hold Windplane servos selected by CA_WP_TAIL_MASK at zero
+                  normalized deflection in hover after control allocation. The effectiveness
+                  matrix is unchanged, so allocation still assumes these servos are available.
+                  The servos are unlocked during transitions and fixed-wing flight.
+            type: boolean
+            default: 0
+
+        CA_WP_TAIL_MASK:
+            description:
+                short: Windplane tail servo selection
+                long: |
+                  Select which Windplane servos belong to the tail. Selected servos are held
+                  at zero normalized deflection in hover when CA_WP_TAIL_LOCK is enabled.
+                  Bit indices refer to servo indices, independent of the motor count.
+            type: bitmask
+            bit:
+                0: Servo 1 (SV0)
+                1: Servo 2 (SV1)
+                2: Servo 3 (SV2)
+                3: Servo 4 (SV3)
+                4: Servo 5 (SV4)
+                5: Servo 6 (SV5)
+            default: 0
+
         CA_WP_R${i}_MX:
             description:
                 short: Windplane Mx effectiveness for rotor ${i}
@@ -1564,8 +1592,15 @@ mixer:
                   - actuator_type: 'servo'
                     group_label: 'Servos'
                     count: 'CA_SV_CS_COUNT'
+                    parameters:
+                      - label: 'Lock tail in hover'
+                        name: CA_WP_TAIL_LOCK
                     per_item_parameters:
                         extra:
+                          - name: 'CA_WP_TAIL_MASK'
+                            label: 'Tail servo'
+                            show_as: 'bitset'
+                            index_offset: 0
                           - name: 'CA_WGT_ACT${i}'
                             label: 'Weight'
                             index_offset: 4

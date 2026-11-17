@@ -46,6 +46,9 @@ public:
 
 	bool getEffectivenessMatrix(Configuration &configuration, EffectivenessUpdateReason external_update) override;
 
+	void updateSetpoint(const matrix::Vector<float, NUM_AXES> &control_sp, int matrix_index,
+			    ActuatorVector &actuator_sp, const ActuatorVector &actuator_min, const ActuatorVector &actuator_max) override;
+
 	void getDesiredAllocationMethod(AllocationMethod allocation_method_out[MAX_NUM_MATRICES]) const override
 	{
 		allocation_method_out[0] = AllocationMethod::WEIGHTED_PSEUDO_INVERSE;
@@ -116,6 +119,8 @@ private:
 	Wrench _wrench{};
 
 	DEFINE_PARAMETERS(
+		(ParamBool<px4::params::CA_WP_TAIL_LOCK>) _param_tail_lock,
+		(ParamInt<px4::params::CA_WP_TAIL_MASK>) _param_tail_mask,
 		(ParamInt<px4::params::CA_ROTOR_COUNT>) _param_ca_rotor_count,
 		(ParamInt<px4::params::CA_SV_CS_COUNT>) _param_ca_sv_cs_count,
 		(ParamFloat<px4::params::CA_WP_WLB_MX>) _param_wlb_mx,

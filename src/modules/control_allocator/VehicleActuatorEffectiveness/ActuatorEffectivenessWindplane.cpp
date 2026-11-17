@@ -120,3 +120,15 @@ bool ActuatorEffectivenessWindplane::getEffectivenessMatrix(Configuration &confi
 
 	return true;
 }
+
+void ActuatorEffectivenessWindplane::updateSetpoint(const matrix::Vector<float, NUM_AXES> &control_sp,
+		int matrix_index, ActuatorVector &actuator_sp, const ActuatorVector &actuator_min, const ActuatorVector &actuator_max)
+{
+	if (matrix_index == 0 && _param_tail_lock.get() && _flight_phase == FlightPhase::HOVER_FLIGHT) {
+		for (int i = 0; i < _wrench.num_servos; ++i) {
+			if (_param_tail_mask.get() & (1u << i)) {
+				actuator_sp(_wrench.num_rotors + i) = 0.f;
+			}
+		}
+	}
+}

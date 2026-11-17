@@ -162,6 +162,7 @@ param set-default SIM_GZ_EC_MAX4 1500
 
 # Servos (control surfaces) params
 param set-default CA_SV_CS_COUNT 6
+param set-default CA_WP_TAIL_MASK 60
 
 param set-default CA_SV_CS0_TRIM	0.00
 param set-default CA_SV_CS0_TYPE	1
