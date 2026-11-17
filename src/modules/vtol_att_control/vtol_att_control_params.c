@@ -40,13 +40,14 @@
  */
 
 /**
- * VTOL Type (Tailsitter=0, Tiltrotor=1, Standard=2)
+ * VTOL Type (Tailsitter=0, Tiltrotor=1, Standard=2, Windplane=3)
  *
  * @value 0 Tailsitter
  * @value 1 Tiltrotor
  * @value 2 Standard
+ * @value 3 Windplane
  * @min 0
- * @max 2
+ * @max 3
  * @reboot_required true
  * @group VTOL Attitude Control
  */

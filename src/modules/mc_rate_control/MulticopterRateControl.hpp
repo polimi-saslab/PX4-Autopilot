@@ -81,12 +81,6 @@ public:
 	bool init();
 
 private:
-	/** Wrench scaling mode  */
-	enum class WrenchScaleMode : int32_t {
-		DISABLED = 0,
-		AUTOMATIC = 1,
-		MANUAL = 2
-	};
 
 	void Run() override;
 

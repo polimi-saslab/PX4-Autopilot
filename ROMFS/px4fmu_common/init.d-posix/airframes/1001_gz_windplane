@@ -17,6 +17,7 @@ param set-default UXRCE_DDS_NS_IDX 20
 param set-default SIM_GZ_EN 1 # Gazebo bridge
 
 param set-default MAV_TYPE 20
+param set VT_TYPE 3 # windplane
 
 param set-default CA_AIRFRAME 16 # windplane
 param set-default CA_METRIC_ALLOC 1
@@ -245,45 +246,36 @@ param set-default MPC_JERK_MAX     3
 param set-default MPC_VEL_MANUAL   2
 param set-default MPC_XY_VEL_MAX   2
 
+# Failures
+param set-default FD_FAIL_R 0
+param set-default FD_FAIL_P 0
+param set-default FD_ESCS_EN 0
+
+# ---- Fixed-Wing (FW) control
+param set FW_THR_TRIM 0.10
+param set FW_R_LIM 30
+param set FW_R_TC 0.6
+
+param set-default VT_FW_DIFTHR_EN 7
+param set-default FW_RR_P 0.65
+param set-default FW_RR_I 0.05
+param set-default FW_RR_D 0
+param set-default FW_RR_FF 0
+
+param set-default FW_PR_P 0.35
+param set-default FW_PR_I 0.05
+param set-default FW_PR_D 0
+param set-default FW_PR_FF 0
+
+param set-default FW_YR_P 0.80
+param set-default FW_YR_I 0
+param set-default FW_YR_D 0
+param set-default FW_YR_FF 0
+
+# transition
+param set-default FW_ARSP_SCALE_EN 0
+param set FW_USE_AIRSPD 1
 
 # Other params
 param set-default EKF2_MAG_TYPE 6 # force the use of magnetometer always to avoid odometry reset after takeoff (automatic heading source switching)
-
-param set-default FD_FAIL_R 70
-param set-default FD_ESCS_EN 0
-
-param set-default FW_P_TC 0.6
-
-param set-default FW_PR_I 0.3
-param set-default FW_PR_P 0.5
-param set-default FW_PSP_OFF 2
-param set-default FW_RR_FF 0.1
-param set-default FW_RR_I 0.1
-param set-default FW_RR_P 0.2
-param set-default FW_YR_FF 0 # make yaw rate controller very weak, only keep default P
-param set-default FW_YR_I 0
-param set-default FW_THR_TRIM 0.35
-param set-default FW_THR_MAX 0.8
-param set-default FW_THR_MIN 0.05
-param set-default FW_T_CLMB_MAX 6
-param set-default FW_T_HRATE_FF 0.5
-param set-default FW_T_SINK_MAX 3
-param set-default FW_T_SINK_MIN 1.6
-param set-default FW_AIRSPD_STALL 10
-param set-default FW_AIRSPD_MIN 14
-param set-default FW_AIRSPD_TRIM 18
-param set-default FW_AIRSPD_MAX 22
-
-param set-default MC_AIRMODE 2
-param set-default MAN_ARM_GESTURE 0 # required for yaw airmode
-
-param set-default VT_ARSP_TRANS 15
-param set-default VT_B_TRANS_DUR 5
-param set-default VT_FW_DIFTHR_EN 7
-param set-default VT_FW_DIFTHR_S_Y 1
-param set-default VT_F_TRANS_DUR 1.5
-param set-default VT_TYPE 0
-
-param set-default WV_EN 0
-
 param set-default EKF2_FUSE_BETA 0

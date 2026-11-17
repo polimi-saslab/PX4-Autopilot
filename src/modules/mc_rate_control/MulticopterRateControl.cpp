@@ -265,12 +265,12 @@ MulticopterRateControl::Run()
 			if (_param_ca_metric_alloc.get()) {
 				float scale[5] {_param_ca_r_tq_scl.get(), _param_ca_p_tq_scl.get(), _param_ca_y_tq_scl.get(),
 					_param_ca_thr_z_scl.get(), _param_ca_thr_xy_scl.get()};
-				const WrenchScaleMode scale_mode = static_cast<WrenchScaleMode>(_param_ca_wr_scl_mode.get());
+				const int32_t scale_mode = _param_ca_wr_scl_mode.get();
 
-				if (scale_mode == WrenchScaleMode::DISABLED) {
+				if (scale_mode == control_allocator_status_s::WRENCH_SCALE_DISABLED) {
 					for (float &gain : scale) { gain = 1.f; }
 
-				} else if (scale_mode == WrenchScaleMode::AUTOMATIC && _allocator_control_limits_valid) {
+				} else if (scale_mode == control_allocator_status_s::WRENCH_SCALE_AUTOMATIC && _allocator_control_limits_valid) {
 					for (int axis = 0; axis < 3; axis++) {
 						scale[axis] = fmaxf(fabsf(_allocator_control_limit_min(axis)), fabsf(_allocator_control_limit_max(axis)));
 					}
