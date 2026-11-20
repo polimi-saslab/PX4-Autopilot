@@ -1,4 +1,4 @@
-menuconfig DRIVERS_DIFFERENTIAL_PRESSURE_SOLANO
+menuconfig DRIVERS_WIND_SENSOR_SOLANO
 	bool "solano"
 	default n
 	---help---

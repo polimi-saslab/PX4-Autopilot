@@ -112,7 +112,6 @@ int Solano::dump(BusInstanceIterator &iterator)
 			int result;
 		} read{driver, {}, PX4_ERROR};
 
-		// Read on the sensor queue; print in the calling MAVLink shell.
 		px4::WorkItemSingleShot runner(*driver, [](void *argument) {
 			auto &request = *static_cast<Read *>(argument);
 			request.result = request.driver->transfer(nullptr, 0, request.data, sizeof(request.data));

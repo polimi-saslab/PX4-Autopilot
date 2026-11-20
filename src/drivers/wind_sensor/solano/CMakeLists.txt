@@ -32,7 +32,7 @@
 ############################################################################
 
 px4_add_module(
-	MODULE drivers__differential_pressure__solano
+	MODULE drivers__wind_sensor__solano
 	MAIN solano
 	COMPILE_FLAGS
 	SRCS

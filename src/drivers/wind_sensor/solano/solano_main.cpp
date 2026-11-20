@@ -46,7 +46,7 @@ command and publishes solano_raw. No decoding or airspeed processing.
 Start manually with an explicit bus, for example: solano start -X -b 2 -a 0x7A.
 )DESCR_STR");
 	PRINT_MODULE_USAGE_NAME("solano", "driver");
-	PRINT_MODULE_USAGE_SUBCATEGORY("airspeed_sensor");
+	PRINT_MODULE_USAGE_SUBCATEGORY("wind_sensor");
 	PRINT_MODULE_USAGE_COMMAND("start");
 	PRINT_MODULE_USAGE_PARAMS_I2C_SPI_DRIVER(true, false);
 	PRINT_MODULE_USAGE_PARAMS_I2C_ADDRESS(DefaultAddress);
