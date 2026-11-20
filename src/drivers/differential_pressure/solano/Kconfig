@@ -1,0 +1,5 @@
+menuconfig DRIVERS_DIFFERENTIAL_PRESSURE_SOLANO
+	bool "solano"
+	default n
+	---help---
+		Raw 12-byte I2C reader for the Chronics Solano probe.

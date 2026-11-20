@@ -209,6 +209,7 @@ set(msg_files
 	SensorsStatusImu.msg
 	SensorUwb.msg
 	SensorAirflow.msg
+	SolanoRaw.msg
 	SystemPower.msg
 	TakeoffStatus.msg
 	TaskStackInfo.msg
