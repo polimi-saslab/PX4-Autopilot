@@ -176,6 +176,41 @@ void MulticopterHoverThrustEstimator::Run()
 			matrix::Vector3f thrust_body_unallocated(control_allocator_status.unallocated_thrust);
 			matrix::Vector3f thrust_body_allocated = thrust_body_sp - thrust_body_unallocated;
 
+			if (_param_ca_metric_alloc.get()) {
+				float scale_xy = _param_ca_thr_xy_scl.get();
+				float scale_z = _param_ca_thr_z_scl.get();
+				const int32_t scale_mode = _param_ca_wr_scl_mode.get();
+
+				if (scale_mode == control_allocator_status_s::WRENCH_SCALE_DISABLED) {
+					scale_xy = 1.f;
+					scale_z = 1.f;
+
+				} else if (scale_mode == control_allocator_status_s::WRENCH_SCALE_AUTOMATIC) {
+					const auto &min = control_allocator_status.control_limit_min;
+					const auto &max = control_allocator_status.control_limit_max;
+					scale_xy = fminf(fmaxf(fabsf(min[3]), fabsf(max[3])), fmaxf(fabsf(min[4]), fabsf(max[4])));
+					scale_z = fmaxf(fabsf(min[5]), fabsf(max[5]));
+				}
+
+				// The EKF state is normalized. Undo the rate controller's metric scaling
+				// in body axes before rotating thrust into the navigation frame.
+				if (!PX4_ISFINITE(scale_xy) || !PX4_ISFINITE(scale_z) || scale_xy <= 0.f || scale_z <= 0.f) {
+					_valid_hysteresis.set_state_and_update(false, local_pos.timestamp);
+
+					if (_valid) {
+						publishInvalidStatus();
+					}
+
+					_valid = false;
+					perf_end(_cycle_perf);
+					return;
+				}
+
+				thrust_body_allocated(0) /= scale_xy;
+				thrust_body_allocated(1) /= scale_xy;
+				thrust_body_allocated(2) /= scale_z;
+			}
+
 			const matrix::Quatf q_att{vehicle_attitude.q};
 			matrix::Vector3f thrust_allocated = q_att.rotateVector(thrust_body_allocated);
 
