@@ -194,8 +194,12 @@ void MulticopterHoverThrustEstimator::Run()
 
 				// The EKF state is normalized. Undo metric scaling in body axes
 				// before rotating thrust into the navigation frame.
+				const bool zero_xy_thrust = fabsf(thrust_body_allocated(0)) <= FLT_EPSILON
+							    && fabsf(thrust_body_allocated(1)) <= FLT_EPSILON;
+
 				if (!PX4_ISFINITE(scale_xy) || !PX4_ISFINITE(scale_z)
-				    || scale_xy <= FLT_EPSILON || scale_z <= FLT_EPSILON) {
+				    || scale_xy < 0.f || scale_z <= FLT_EPSILON
+				    || (scale_xy <= FLT_EPSILON && !zero_xy_thrust)) {
 					_valid_hysteresis.set_state_and_update(false, local_pos.timestamp);
 
 					_valid = false;
@@ -204,8 +208,11 @@ void MulticopterHoverThrustEstimator::Run()
 					return;
 				}
 
-				thrust_body_allocated(0) /= scale_xy;
-				thrust_body_allocated(1) /= scale_xy;
+				if (scale_xy > FLT_EPSILON) {
+					thrust_body_allocated(0) /= scale_xy;
+					thrust_body_allocated(1) /= scale_xy;
+				}
+
 				thrust_body_allocated(2) /= scale_z;
 			}
 
