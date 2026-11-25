@@ -123,6 +123,10 @@ private:
 	perf_counter_t _cycle_perf{perf_alloc(PC_ELAPSED, MODULE_NAME": cycle time")};
 
 	DEFINE_PARAMETERS(
+		(ParamBool<px4::params::CA_METRIC_ALLOC>) _param_ca_metric_alloc,
+		(ParamInt<px4::params::CA_WR_SCL_MODE>) _param_ca_wr_scl_mode,
+		(ParamFloat<px4::params::CA_THR_XY_SCL>) _param_ca_thr_xy_scl,
+		(ParamFloat<px4::params::CA_THR_Z_SCL>) _param_ca_thr_z_scl,
 		(ParamFloat<px4::params::HTE_HT_NOISE>) _param_hte_ht_noise,
 		(ParamFloat<px4::params::HTE_ACC_GATE>) _param_hte_acc_gate,
 		(ParamFloat<px4::params::HTE_HT_ERR_INIT>) _param_hte_ht_err_init,
