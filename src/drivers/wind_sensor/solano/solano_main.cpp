@@ -69,7 +69,14 @@ extern "C" int solano_main(int argc, char *argv[])
 	BusInstanceIterator iterator(MODULE_NAME, cli, DRV_AIRSPEED_DEVTYPE_SOLANO);
 
 	if (!strcmp(verb, "start")) {
-		return Solano::module_start(cli, iterator);
+		const int ret = Solano::module_start(cli, iterator);
+
+		if (ret != PX4_OK) {
+			PX4_ERR("startup failed on I2C bus %d at 0x%02x; check sensor power and wiring",
+				cli.requested_bus, cli.i2c_address);
+		}
+
+		return ret;
 
 	} else if (!strcmp(verb, "stop")) {
 		return Solano::module_stop(iterator);
