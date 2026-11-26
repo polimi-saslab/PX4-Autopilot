@@ -40,6 +40,7 @@
 #include <uORB/PublicationMulti.hpp>
 #include <uORB/topics/solano.h>
 #include <uORB/topics/solano_raw.h>
+#include <uORB/topics/sensor_airflow.h>
 
 class Solano : public device::I2C, public I2CSPIDriver<Solano>
 {
@@ -62,6 +63,7 @@ private:
 
 	uORB::PublicationMulti<solano_raw_s> _raw_pub{ORB_ID(solano_raw)};
 	uORB::PublicationMulti<solano_s> _solano_pub{ORB_ID(solano)};
+	uORB::Publication<sensor_airflow_s> _airflow_pub{ORB_ID(sensor_airflow)};
 	perf_counter_t _sample_perf{perf_alloc(PC_ELAPSED, MODULE_NAME ": read")};
 	perf_counter_t _comms_errors{perf_alloc(PC_COUNT, MODULE_NAME ": communication errors")};
 };

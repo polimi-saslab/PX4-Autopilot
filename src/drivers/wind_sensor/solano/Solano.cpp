@@ -33,6 +33,7 @@
 
 #include "Solano.hpp"
 #include <px4_platform_common/px4_work_queue/WorkItemSingleShot.hpp>
+#include <mathlib/mathlib.h>
 
 using namespace time_literals;
 
@@ -101,6 +102,15 @@ void Solano::RunImpl()
 		decoded.angle_ew = decodeWord(&report.data[8]);
 		decoded.angle_ew_f = decodeWord(&report.data[10]);
 		_solano_pub.publish(decoded);
+
+		sensor_airflow_s airflow{};
+		airflow.timestamp = report.timestamp;
+		airflow.device_id = report.device_id;
+		airflow.speed = decoded.windspeed_f;
+		airflow.direction = math::radians(decoded.angle_ns_f);
+		airflow.elevation = math::radians(decoded.angle_ew_f);
+		airflow.status = 0;
+		_airflow_pub.publish(airflow);
 
 	} else {
 		perf_count(_comms_errors);
