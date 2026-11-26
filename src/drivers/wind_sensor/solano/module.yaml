@@ -1,0 +1,12 @@
+module_name: Chronics Solano Airflow Probe
+
+parameters:
+  - group: Sensors
+    definitions:
+      SENS_EN_SOLANO:
+        description:
+          short: Enable Solano airflow probe
+          long: Start the Solano driver on external I2C bus 2 at address 0x7A during boot.
+        type: boolean
+        default: 0
+        reboot_required: true

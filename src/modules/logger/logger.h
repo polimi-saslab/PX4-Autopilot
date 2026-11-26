@@ -396,6 +396,7 @@ private:
 		(ParamInt<px4::params::SDLOG_UTC_OFFSET>) _param_sdlog_utc_offset,
 		(ParamInt<px4::params::SDLOG_DIRS_MAX>) _param_sdlog_dirs_max,
 		(ParamInt<px4::params::SDLOG_PROFILE>) _param_sdlog_profile,
+		(ParamInt<px4::params::SDLOG_SOLANO>) _param_sdlog_solano,
 		(ParamInt<px4::params::SDLOG_MISSION>) _param_sdlog_mission,
 		(ParamBool<px4::params::SDLOG_BOOT_BAT>) _param_sdlog_boot_bat,
 		(ParamBool<px4::params::SDLOG_UUID>) _param_sdlog_uuid

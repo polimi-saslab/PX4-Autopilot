@@ -1,0 +1,5 @@
+menuconfig DRIVERS_WIND_SENSOR_SOLANO
+	bool "solano"
+	default n
+	---help---
+		I2C driver for the Chronics Solano airflow probe.

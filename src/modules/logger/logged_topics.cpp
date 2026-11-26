@@ -164,6 +164,7 @@ void LoggedTopics::add_default_topics()
 	add_optional_topic_multi("control_allocator_status", 200, 2);
 	add_optional_topic_multi("rate_ctrl_status", 200, 2);
 	add_optional_topic_multi("sensor_hygrometer", 500, 4);
+	add_optional_topic_multi("solano_raw", 0, 3);
 	add_optional_topic_multi("rpm", 200);
 	add_topic_multi("timesync_status", 1000, 3);
 	add_optional_topic_multi("telemetry_status", 1000, 4);
@@ -528,7 +529,7 @@ bool LoggedTopics::add_topic_multi(const char *name, uint16_t interval_ms, uint8
 	return true;
 }
 
-bool LoggedTopics::initialize_logged_topics(SDLogProfileMask profile)
+bool LoggedTopics::initialize_logged_topics(SDLogProfileMask profile, SolanoLogLevel solano_log_level)
 {
 	int ntopics = add_topics_from_file(PX4_STORAGEDIR "/etc/logging/logger_topics.txt");
 
@@ -539,7 +540,20 @@ bool LoggedTopics::initialize_logged_topics(SDLogProfileMask profile)
 		initialize_configured_topics(profile);
 	}
 
+	add_solano_topics(solano_log_level);
+
 	return _subscriptions.count > 0;
+}
+
+void LoggedTopics::add_solano_topics(SolanoLogLevel solano_log_level)
+{
+	if (solano_log_level >= SolanoLogLevel::DECODED) {
+		add_optional_topic_multi("solano", 100, 3);
+	}
+
+	if (solano_log_level >= SolanoLogLevel::RAW) {
+		add_optional_topic_multi("solano_raw", 0, 3);
+	}
 }
 
 void LoggedTopics::initialize_configured_topics(SDLogProfileMask profile)

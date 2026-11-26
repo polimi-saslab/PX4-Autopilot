@@ -526,7 +526,8 @@ bool Logger::initialize_topics()
 		}
 	}
 
-	if (!logged_topics.initialize_logged_topics(sdlog_profile)) {
+	if (!logged_topics.initialize_logged_topics(sdlog_profile,
+			static_cast<SolanoLogLevel>(_param_sdlog_solano.get()))) {
 		return false;
 	}
 

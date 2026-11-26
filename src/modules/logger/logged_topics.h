@@ -58,6 +58,12 @@ enum class SDLogProfileMask : int32_t {
 	HIGH_RATE_SENSORS =     1 << 11
 };
 
+enum class SolanoLogLevel : int32_t {
+	AIRFLOW_ONLY = 0,
+	DECODED = 1,
+	RAW = 2
+};
+
 enum class MissionLogType : int32_t {
 	Disabled =               0,
 	Complete =               1,
@@ -102,7 +108,7 @@ public:
 	 */
 	void initialize_mission_topics(MissionLogType mission_log_type);
 
-	bool initialize_logged_topics(SDLogProfileMask profile);
+	bool initialize_logged_topics(SDLogProfileMask profile, SolanoLogLevel solano_log_level);
 
 	const RequestedSubscriptionArray &subscriptions() const { return _subscriptions; }
 	int numMissionSubscriptions() const { return _num_mission_subs; }
@@ -164,6 +170,7 @@ private:
 	 * Add topic subscriptions based on the profile configuration
 	 */
 	void initialize_configured_topics(SDLogProfileMask profile);
+	void add_solano_topics(SolanoLogLevel solano_log_level);
 
 	void add_default_topics();
 	void add_estimator_replay_topics();
