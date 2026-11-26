@@ -41,8 +41,8 @@ void Solano::print_usage()
 	PRINT_MODULE_DESCRIPTION(
 		R"DESCR_STR(
 ### Description
-Raw I2C reader for the Chronics Solano probe. Reads 12 bytes without a preceding
-command and publishes solano_raw. No decoding or airspeed processing.
+I2C driver for the Chronics Solano probe. Reads 12 bytes without a preceding
+command and publishes solano_raw and the decoded solano measurements.
 Start manually with an explicit bus, for example: solano start -X -b 2 -a 0x7A.
 )DESCR_STR");
 	PRINT_MODULE_USAGE_NAME("solano", "driver");

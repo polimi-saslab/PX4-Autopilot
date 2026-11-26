@@ -36,6 +36,17 @@
 
 using namespace time_literals;
 
+static float decodeWord(const uint8_t *bytes)
+{
+	int32_t value = (static_cast<int32_t>(bytes[0]) << 8) | bytes[1];
+
+	if (value >= 0x8000) {
+		value -= 0x10000;
+	}
+
+	return value * 0.01f;
+}
+
 Solano::Solano(const I2CSPIDriverConfig &config) :
 	I2C(config),
 	I2CSPIDriver(config)
@@ -78,6 +89,18 @@ void Solano::RunImpl()
 		report.error_count = perf_event_count(_comms_errors);
 		report.timestamp = hrt_absolute_time();
 		_raw_pub.publish(report);
+
+		solano_s decoded{};
+		decoded.timestamp = report.timestamp;
+		decoded.timestamp_sample = report.timestamp_sample;
+		decoded.device_id = report.device_id;
+		decoded.windspeed = decodeWord(&report.data[0]);
+		decoded.windspeed_f = decodeWord(&report.data[2]);
+		decoded.angle_ns = decodeWord(&report.data[4]);
+		decoded.angle_ns_f = decodeWord(&report.data[6]);
+		decoded.angle_ew = decodeWord(&report.data[8]);
+		decoded.angle_ew_f = decodeWord(&report.data[10]);
+		_solano_pub.publish(decoded);
 
 	} else {
 		perf_count(_comms_errors);

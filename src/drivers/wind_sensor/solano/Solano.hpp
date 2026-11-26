@@ -38,6 +38,7 @@
 #include <lib/perf/perf_counter.h>
 #include <px4_platform_common/i2c_spi_buses.h>
 #include <uORB/PublicationMulti.hpp>
+#include <uORB/topics/solano.h>
 #include <uORB/topics/solano_raw.h>
 
 class Solano : public device::I2C, public I2CSPIDriver<Solano>
@@ -60,6 +61,7 @@ private:
 	int probe() override;
 
 	uORB::PublicationMulti<solano_raw_s> _raw_pub{ORB_ID(solano_raw)};
+	uORB::PublicationMulti<solano_s> _solano_pub{ORB_ID(solano)};
 	perf_counter_t _sample_perf{perf_alloc(PC_ELAPSED, MODULE_NAME ": read")};
 	perf_counter_t _comms_errors{perf_alloc(PC_COUNT, MODULE_NAME ": communication errors")};
 };
