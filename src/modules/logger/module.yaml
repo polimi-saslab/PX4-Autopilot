@@ -102,6 +102,19 @@ parameters:
       min: 0
       max: 4095
       reboot_required: true
+    SDLOG_SOLANO:
+      description:
+        short: Solano sensor logging level
+        long: 'Select how much Solano data to include in logs.'
+      type: enum
+      values:
+        0: Airflow only
+        1: Airflow and decoded Solano data
+        2: Airflow, decoded Solano data, and raw bytes
+      default: 0
+      min: 0
+      max: 2
+      reboot_required: true
     SDLOG_DIRS_MAX:
       description:
         short: Maximum number of log directories to keep
